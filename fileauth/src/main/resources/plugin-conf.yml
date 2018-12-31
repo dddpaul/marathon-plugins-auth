@@ -1,0 +1,55 @@
+---
+plugins:
+  authorization:
+    plugin: mesosphere.marathon.plugin.auth.Authorizer
+    implementation: com.github.dddpaul.marathon.plugin.fileauth.FileAuthorizer
+    enabled: true
+    configuration:
+      roles:
+      - role: admin
+        actions:
+        - CreateGroup
+        - UpdateGroup
+        - DeleteGroup
+        - ViewGroup
+        - CreateApp
+        - UpdateApp
+        - DeleteApp
+        - ViewApp
+        - CreateResource
+        - UpdateResource
+        - DeleteResource
+        - ViewResource
+      - role: guest
+        actions:
+        - ViewGroup
+        - ViewApp
+        - ViewResource
+      users:
+      - user: ernie
+        acls:
+        - role: admin
+          on: '/'
+      - user: paul
+        acls:
+        - role: admin
+          on: 'corp-*'
+        - role: guest
+          on: '/'
+      - user: guest
+        acls:
+        - role: guest
+          on: '/'
+
+  authentication:
+    plugin: mesosphere.marathon.plugin.auth.Authenticator
+    implementation: com.github.dddpaul.marathon.plugin.fileauth.FileAuthenticator
+    enabled: true
+    configuration:
+      users:
+      - user: ernie
+        password: ernie
+      - user: paul
+        password: qwerty
+      - user: guest
+        password: '12345'

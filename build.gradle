@@ -1,0 +1,57 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.2.0'
+    }
+}
+
+allprojects {
+    apply plugin: 'java'
+
+    group = 'com.github.dddpaul.marathon'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        jcenter()
+        mavenCentral()
+        maven {
+            url "http://downloads.mesosphere.io/maven"
+        }
+    }
+
+    wrapper {
+        gradleVersion = '4.10.2'
+        distributionUrl = 'https://services.gradle.org/distributions/gradle-4.10.2-all.zip'
+    }
+
+    dependencies {
+        compileOnly "mesosphere.marathon:marathon_2.11:1.5.1"
+        compileOnly "mesosphere.marathon:plugin-interface_2.11:1.5.1"
+        compileOnly "com.typesafe.scala-logging:scala-logging_2.11:3.7.2"
+        compileOnly "com.typesafe.akka:akka-actor_2.11:2.5.17"
+
+        testCompile "org.testcontainers:testcontainers:1.9.1"
+        testCompile "com.squareup.okhttp3:okhttp:3.11.0"
+        testCompile 'org.slf4j:slf4j-simple:1.7.25'
+        testCompile('org.junit.jupiter:junit-jupiter-api:5.3.1')
+        testCompile('org.junit.jupiter:junit-jupiter-params:5.3.1')
+        testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.1')
+    }
+
+    test {
+        useJUnitPlatform()
+/*
+        testLogging {
+            events "passed", "skipped", "failed"
+        }
+*/
+    }
+}
