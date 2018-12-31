@@ -74,15 +74,15 @@
       "configuration": {
         "users": [
           {
-            "user": "ernie",
+            "login": "ernie",
             "password": "ernie"
           },
           {
-            "user": "paul",
+            "login": "paul",
             "password": "qwerty"
           },
           {
-            "user": "guest",
+            "login": "guest",
             "password": "12345"
           }
         ]

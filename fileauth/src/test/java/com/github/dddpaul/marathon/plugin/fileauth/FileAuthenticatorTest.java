@@ -1,58 +1,50 @@
 package com.github.dddpaul.marathon.plugin.fileauth;
 
-import okhttp3.Credentials;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.DockerComposeContainer;
-import org.testcontainers.containers.output.OutputFrame;
+import play.api.libs.json.JsObject;
+import play.api.libs.json.JsValue;
+import play.api.libs.json.Json;
 
-import java.io.File;
 import java.io.IOException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileAuthenticatorTest {
 
-    private static final int MARATHON_PORT = 8080;
-    private static final DockerComposeContainer environment =
-            new DockerComposeContainer(new File("src/test/resources/docker-compose.yml"))
-                    .withLocalCompose(true)
-                    .withExposedService("marathon", MARATHON_PORT)
-                    .withLogConsumer("marathon", o -> System.out.print(((OutputFrame) o).getUtf8String()));
+    String json = "{\n" +
+            "  \"configuration\": {\n" +
+            "    \"users\": [\n" +
+            "      {\n" +
+            "        \"user\": \"ernie\",\n" +
+            "        \"password\": \"ernie\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"user\": \"paul\",\n" +
+            "        \"password\": \"qwerty\"\n" +
+            "      },\n" +
+            "      {\n" +
+            "        \"user\": \"guest\",\n" +
+            "        \"password\": \"12345\"\n" +
+            "      }\n" +
+            "    ]\n" +
+            "  }\n" +
+            "}";
 
     @BeforeAll
     static void init() {
-        environment.start();
+
     }
 
     @AfterAll
     static void shutdown() {
-        environment.stop();
+
     }
 
     @Test
-    void shouldAuthenticateForValidCredentials() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("http://localhost:" + MARATHON_PORT + "/v2/apps/")
-                .header("Authorization", Credentials.basic("abc", "qwe"))
-                .build();
-        Response response = client.newCall(request).execute();
-        assertEquals(200, response.code());
-    }
-
-    @Test
-    void shouldNotAuthenticateForInvalidCredentials() throws IOException {
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url("http://localhost:" + MARATHON_PORT + "/v2/apps/")
-                .header("Authorization", Credentials.basic("jesse", "password"))
-                .build();
-        Response response = client.newCall(request).execute();
-        assertEquals(401, response.code());
+    void shouldAuthenticateForValidCredentials() throws Exception {
+        JsObject js = (JsObject) Json.parse(json);
+        FileAuthenticator authenticator = new FileAuthenticator();
+        authenticator.initialize(null, js);
+        authenticator.doAuth("a", "b");
     }
 }

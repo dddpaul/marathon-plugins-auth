@@ -1,0 +1,18 @@
+{
+  "configuration": {
+    "users": [
+      {
+        "user": "ernie",
+        "password": "ernie"
+      },
+      {
+        "user": "paul",
+        "password": "qwerty"
+      },
+      {
+        "user": "guest",
+        "password": "12345"
+      }
+    ]
+  }
+}
