@@ -38,7 +38,10 @@ class FileAuthenticatorTest {
                 Arguments.of("", ""),
                 Arguments.of("", "invalid"),
                 Arguments.of("invalid", ""),
-                Arguments.of("invalid", "invalid")
+                Arguments.of("invalid", "invalid"),
+                Arguments.of("ernie", null),
+                Arguments.of("ernie", ""),
+                Arguments.of("ernie", "invalid")
         );
     }
 

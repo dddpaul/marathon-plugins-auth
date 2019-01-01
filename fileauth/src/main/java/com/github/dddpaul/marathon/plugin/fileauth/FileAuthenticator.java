@@ -11,6 +11,7 @@ import mesosphere.marathon.plugin.plugin.PluginConfiguration;
 import play.api.libs.json.JsObject;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class FileAuthenticator extends BasicAuthenticator implements PluginConfiguration {
 
@@ -31,7 +32,7 @@ public class FileAuthenticator extends BasicAuthenticator implements PluginConfi
     @Override
     protected Identity doAuth(String username, String password) {
         User user = configuration.getUsers().get(username);
-        if (user != null && password.equals(user.getPassword())) {
+        if (user != null && Objects.equals(password, user.getPassword())) {
             return new JavaIdentity(username);
         } else {
             return null;
