@@ -44,7 +44,16 @@ class FileAuthenticatorTest {
                 Arguments.of("invalid", "invalid"),
                 Arguments.of("ernie", null),
                 Arguments.of("ernie", ""),
-                Arguments.of("ernie", "invalid")
+                Arguments.of("ernie", "invalid"),
+                Arguments.of("md5_user", null),
+                Arguments.of("md5_user", ""),
+                Arguments.of("md5_user", "invalid"),
+                Arguments.of("sha1_user", null),
+                Arguments.of("sha1_user", ""),
+                Arguments.of("sha1_user", "invalid"),
+                Arguments.of("bcrypt_user", null),
+                Arguments.of("bcrypt_user", ""),
+                Arguments.of("bcrypt_user", "invalid")
         );
     }
 

@@ -12,6 +12,9 @@ public class MD5Checker implements PasswordChecker {
 
     @Override
     public Identity check(User user, String password) {
+        if (password == null) {
+            return null;
+        }
         String salt = StringUtils.substringBeforeLast(user.getPassword(), "$");
         String crypt = Md5Crypt.md5Crypt(password.getBytes(), salt, MD5.getPrefix());
         return crypt.equals(user.getPassword())

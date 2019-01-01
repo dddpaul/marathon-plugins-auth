@@ -13,6 +13,9 @@ public class SHA1Checker implements PasswordChecker {
 
     @Override
     public Identity check(User user, String password) {
+        if (password == null) {
+            return null;
+        }
         String crypt = SHA1.getPrefix() + Base64.getEncoder().encodeToString(sha1(password));
         return crypt.equals(user.getPassword())
                 ? new JavaIdentity(user.getUser())

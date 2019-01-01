@@ -9,6 +9,9 @@ public class BcryptChecker implements PasswordChecker {
 
     @Override
     public Identity check(User user, String password) {
+        if (password == null) {
+            return null;
+        }
         return BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified
                 ? new JavaIdentity(user.getUser())
                 : null;
