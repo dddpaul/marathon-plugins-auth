@@ -47,9 +47,9 @@ plugins:
     enabled: true
     configuration:
       users:
-      - login: ernie
+      - user: ernie
         password: ernie
-      - login: paul
+      - user: paul
         password: qwerty
-      - login: guest
+      - user: guest
         password: '12345'
