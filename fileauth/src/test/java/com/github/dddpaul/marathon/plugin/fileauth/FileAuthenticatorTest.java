@@ -26,7 +26,8 @@ class FileAuthenticatorTest {
         return Stream.of(
                 Arguments.of("ernie", "ernie"),
                 Arguments.of("paul", "qwerty"),
-                Arguments.of("guest", "12345")
+                Arguments.of("guest", "12345"),
+                Arguments.of("md5user", "qwe")
         );
     }
 

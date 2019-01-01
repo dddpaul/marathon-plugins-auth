@@ -2,16 +2,15 @@ package com.github.dddpaul.marathon.plugin.fileauth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dddpaul.marathon.plugin.auth.BasicAuthenticator;
-import com.github.dddpaul.marathon.plugin.auth.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.fileauth.checkers.CheckerRegistry;
 import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthenticatorConfigurationHolder;
 import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthenticatorConfigurationHolder.AuthenticatorConfiguration;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 import mesosphere.marathon.plugin.plugin.PluginConfiguration;
 import play.api.libs.json.JsObject;
 
 import java.io.IOException;
-import java.util.Objects;
+import java.util.Optional;
 
 public class FileAuthenticator extends BasicAuthenticator implements PluginConfiguration {
 
@@ -31,11 +30,8 @@ public class FileAuthenticator extends BasicAuthenticator implements PluginConfi
 
     @Override
     protected Identity doAuth(String username, String password) {
-        User user = configuration.getUsers().get(username);
-        if (user != null && Objects.equals(password, user.getPassword())) {
-            return new JavaIdentity(username);
-        } else {
-            return null;
-        }
+        return Optional.ofNullable(configuration.getUsers().get(username))
+                .map(user -> CheckerRegistry.get(user.getPassword()).check(user, password))
+                .orElse(null);
     }
 }
