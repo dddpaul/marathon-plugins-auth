@@ -72,20 +72,17 @@
       "implementation": "com.github.dddpaul.marathon.plugin.fileauth.FileAuthenticator",
       "enabled": true,
       "configuration": {
-        "users": [
-          {
-            "user": "ernie",
+        "users": {
+          "ernie": {
             "password": "ernie"
           },
-          {
-            "user": "paul",
+          "paul": {
             "password": "qwerty"
           },
-          {
-            "user": "guest",
+          "guest": {
             "password": "12345"
           }
-        ]
+        }
       }
     }
   }
