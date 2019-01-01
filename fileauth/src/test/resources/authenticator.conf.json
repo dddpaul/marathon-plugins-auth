@@ -9,6 +9,9 @@
       },
       "guest": {
         "password": "12345"
+      },
+      "md5user": {
+        "password": "$apr1$iE9/K1ue$J81SB0ojysREtBVlRXLoa/"
       }
     }
   }
