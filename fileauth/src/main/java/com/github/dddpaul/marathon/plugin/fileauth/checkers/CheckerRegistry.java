@@ -2,10 +2,16 @@ package com.github.dddpaul.marathon.plugin.fileauth.checkers;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.stream.Stream;
+
+/**
+ * See <a href="https://httpd.apache.org/docs/2.4/misc/password_encryptions.html">Password Formats</a>
+ * for implementation details
+ */
 public enum CheckerRegistry {
 
-    DEFAULT("", PasswordChecker.Default()),
     MD5("$apr1$", new MD5Checker()),
+    BCRYPT("$2y$", new BcryptChecker()),
     SHA1("{SHA}", new SHA1Checker());
 
     private String prefix;
@@ -25,12 +31,10 @@ public enum CheckerRegistry {
     }
 
     public static PasswordChecker get(String password) {
-        if (StringUtils.startsWith(password, MD5.getPrefix())) {
-            return MD5.getChecker();
-        }
-        if (StringUtils.startsWith(password, SHA1.getPrefix())) {
-            return SHA1.getChecker();
-        }
-        return DEFAULT.getChecker();
+        return Stream.of(values())
+                .filter(r -> StringUtils.startsWith(password, r.getPrefix()))
+                .findFirst()
+                .map(CheckerRegistry::getChecker)
+                .orElse(PasswordChecker.Default());
     }
 }

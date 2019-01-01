@@ -10,8 +10,14 @@
       "guest": {
         "password": "12345"
       },
-      "md5user": {
+      "md5_user": {
         "password": "$apr1$iE9/K1ue$J81SB0ojysREtBVlRXLoa/"
+      },
+      "sha1_user": {
+        "password": "{SHA}BW6v589SIg3i3zaEW47RcMZ+I+M="
+      },
+      "bcrypt_user": {
+        "password": "$2y$05$wT1i4AXwdcXkCYtEHkOqUeHUMgB4o6GO/bXcW6HWjOG1MlpeLFmv6"
       }
     }
   }
