@@ -1,22 +1,19 @@
-package com.github.dddpaul.marathon.plugin.fileauth.entities;
+package com.github.dddpaul.marathon.plugin.fileauth.checkers;
 
 import com.github.dddpaul.marathon.plugin.auth.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.StringUtils;
 
-public class MD5Checker implements PasswordChecker {
+import static com.github.dddpaul.marathon.plugin.fileauth.checkers.CheckerRegistry.MD5;
 
-    private static String PREFIX = "$apr1$";
+public class MD5Checker implements PasswordChecker {
 
     @Override
     public Identity check(User user, String password) {
-        if (!user.getPassword().startsWith(PREFIX)) {
-            return null;
-        }
-
         String salt = StringUtils.substringBeforeLast(user.getPassword(), "$");
-        String crypt = Md5Crypt.md5Crypt(password.getBytes(), salt, PREFIX);
+        String crypt = Md5Crypt.md5Crypt(password.getBytes(), salt, MD5.getPrefix());
         return crypt.equals(user.getPassword())
                 ? new JavaIdentity(user.getUser())
                 : null;

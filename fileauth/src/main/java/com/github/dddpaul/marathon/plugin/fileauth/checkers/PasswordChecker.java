@@ -1,6 +1,7 @@
-package com.github.dddpaul.marathon.plugin.fileauth.entities;
+package com.github.dddpaul.marathon.plugin.fileauth.checkers;
 
 import com.github.dddpaul.marathon.plugin.auth.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 
 import java.util.Objects;
