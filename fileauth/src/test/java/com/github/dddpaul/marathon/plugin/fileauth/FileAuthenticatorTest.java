@@ -28,6 +28,7 @@ class FileAuthenticatorTest {
                 Arguments.of("paul", "qwerty"),
                 Arguments.of("guest", "12345"),
                 Arguments.of("md5_user", "qwe"),
+                Arguments.of("sha1_user", "qwe"),
                 Arguments.of("bcrypt_user", "qwe")
         );
     }
