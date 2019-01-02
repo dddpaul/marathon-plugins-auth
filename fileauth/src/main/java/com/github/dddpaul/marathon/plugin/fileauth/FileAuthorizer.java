@@ -1,32 +1,73 @@
 package com.github.dddpaul.marathon.plugin.fileauth;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dddpaul.marathon.plugin.auth.Action;
 import com.github.dddpaul.marathon.plugin.auth.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthorizerConfigurationHolder;
+import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthorizerConfigurationHolder.AuthorizerConfiguration;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.Acl;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.AclUser;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.Role;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.plugin.auth.AuthorizedResource;
 import mesosphere.marathon.plugin.auth.Authorizer;
 import mesosphere.marathon.plugin.auth.Identity;
 import mesosphere.marathon.plugin.http.HttpResponse;
+import mesosphere.marathon.plugin.plugin.PluginConfiguration;
 import mesosphere.marathon.state.AppDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import play.api.libs.json.JsObject;
 
-public class FileAuthorizer implements Authorizer {
+import java.io.IOException;
+
+public class FileAuthorizer implements Authorizer, PluginConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private AuthorizerConfiguration configuration;
+
+    @Override
+    public void initialize(scala.collection.immutable.Map<String, Object> marathonInfo, JsObject json) {
+        logger.info("Authorizer initialize has been called with: " + json);
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            configuration = mapper.readValue(json.toString(), AuthorizerConfigurationHolder.class).getConfiguration();
+        } catch (IOException e) {
+            logger.error("Plugin authorizer configuration parsing has been failed", e);
+            configuration = new AuthorizerConfiguration();
+        }
+    }
 
     @Override
     public <Resource> boolean isAuthorized(Identity principal, AuthorizedAction<Resource> action, Resource resource) {
         logger.info("Principal = {}, action = {}, path = {}", principal.toString(), action.toString(), resource.toString());
-        if (principal instanceof JavaIdentity) {
-            JavaIdentity identity = (JavaIdentity) principal;
-            if (resource instanceof AppDefinition) {
-                return isAuthorizedForApp(identity, Action.byAction(action), (AppDefinition) resource);
+
+        if (!(principal instanceof JavaIdentity)) {
+            return false;
+        }
+        JavaIdentity identity = (JavaIdentity) principal;
+
+        AclUser user = configuration.getUsers().get(identity.getName());
+        if (user == null) {
+            return false;
+        }
+
+        for (Acl acl : user.getAcls()) {
+            Role role = configuration.getRoles().get(acl.getRole());
+            if (role == null) {
+                // User role is not defined
+                return false;
             }
-            if (resource instanceof AuthorizedResource) {
-                return isAuthorizedForResource(identity, Action.byAction(action), (AuthorizedResource) resource);
+
+            if (role.getActions().contains(Action.byAction(action))) {
+                if (resource instanceof AppDefinition) {
+                    if ((((AppDefinition) resource).id().toString()).startsWith(acl.getPath())) {
+                        return true;
+                    }
+                }
             }
         }
+
         return false;
     }
 

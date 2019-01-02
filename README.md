@@ -1,4 +1,4 @@
-# Example plugins for Marathon
+# Plugins for Marathon
 
 ## Marathon Plugin Dependency
 

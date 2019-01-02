@@ -23,7 +23,7 @@ public class FileAuthenticator extends BasicAuthenticator implements PluginConfi
         try {
             configuration = mapper.readValue(json.toString(), AuthenticatorConfigurationHolder.class).getConfiguration();
         } catch (IOException e) {
-            logger.error("Plugin configuration parsing has been failed", e);
+            logger.error("Plugin authenticator configuration parsing has been failed", e);
             configuration = new AuthenticatorConfiguration();
         }
     }

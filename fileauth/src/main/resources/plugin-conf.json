@@ -5,9 +5,8 @@
       "implementation": "com.github.dddpaul.marathon.plugin.fileauth.FileAuthorizer",
       "enabled": true,
       "configuration": {
-        "roles": [
-          {
-            "role": "admin",
+        "roles": {
+          "admin": {
             "actions": [
               "CreateGroup",
               "UpdateGroup",
@@ -23,48 +22,44 @@
               "ViewResource"
             ]
           },
-          {
-            "role": "guest",
+          "guest": {
             "actions": [
               "ViewGroup",
               "ViewApp",
               "ViewResource"
             ]
           }
-        ],
-        "users": [
-          {
-            "user": "ernie",
+        },
+        "users": {
+          "ernie": {
             "acls": [
               {
                 "role": "admin",
-                "true": "/"
+                "path": "/"
               }
             ]
           },
-          {
-            "user": "paul",
+          "paul": {
             "acls": [
               {
-                "role": "admin",
-                "true": "corp-*"
+                "role": "guest",
+                "path": "/"
               },
               {
-                "role": "guest",
-                "true": "/"
+                "role": "admin",
+                "path": "corp-*"
               }
             ]
           },
-          {
-            "user": "guest",
+          "guest": {
             "acls": [
               {
                 "role": "guest",
-                "true": "/"
+                "path": "/"
               }
             ]
           }
-        ]
+        }
       }
     },
     "authentication": {

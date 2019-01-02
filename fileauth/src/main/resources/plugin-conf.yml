@@ -6,40 +6,40 @@ plugins:
     enabled: true
     configuration:
       roles:
-      - role: admin
-        actions:
-        - CreateGroup
-        - UpdateGroup
-        - DeleteGroup
-        - ViewGroup
-        - CreateApp
-        - UpdateApp
-        - DeleteApp
-        - ViewApp
-        - CreateResource
-        - UpdateResource
-        - DeleteResource
-        - ViewResource
-      - role: guest
-        actions:
-        - ViewGroup
-        - ViewApp
-        - ViewResource
+        admin:
+          actions:
+          - CreateGroup
+          - UpdateGroup
+          - DeleteGroup
+          - ViewGroup
+          - CreateApp
+          - UpdateApp
+          - DeleteApp
+          - ViewApp
+          - CreateResource
+          - UpdateResource
+          - DeleteResource
+          - ViewResource
+        guest:
+          actions:
+          - ViewGroup
+          - ViewApp
+          - ViewResource
       users:
-      - user: ernie
-        acls:
-        - role: admin
-          on: '/'
-      - user: paul
-        acls:
-        - role: admin
-          on: 'corp-*'
-        - role: guest
-          on: '/'
-      - user: guest
-        acls:
-        - role: guest
-          on: '/'
+        ernie:
+          acls:
+          - role: admin
+            path: '/'
+        paul:
+          acls:
+          - role: guest
+            path: '/'
+          - role: admin
+            path: 'corp-*'
+        guest:
+          acls:
+          - role: guest
+            path: '/'
 
   authentication:
     plugin: mesosphere.marathon.plugin.auth.Authenticator
