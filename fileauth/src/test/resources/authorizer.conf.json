@@ -1,0 +1,61 @@
+{
+  "configuration": {
+    "roles": [
+      {
+        "role": "admin",
+        "actions": [
+          "CreateGroup",
+          "UpdateGroup",
+          "DeleteGroup",
+          "ViewGroup",
+          "CreateApp",
+          "UpdateApp",
+          "DeleteApp",
+          "ViewApp",
+          "CreateResource",
+          "UpdateResource",
+          "DeleteResource",
+          "ViewResource"
+        ]
+      },
+      {
+        "role": "guest",
+        "actions": [
+          "ViewGroup",
+          "ViewApp",
+          "ViewResource"
+        ]
+      }
+    ],
+    "users": {
+      "ernie": {
+        "acls": [
+          {
+            "role": "admin",
+            "true": "/"
+          }
+        ]
+      },
+      "paul": {
+        "acls": [
+          {
+            "role": "guest",
+            "true": "/"
+          },
+          {
+            "role": "admin",
+            "true": "corp-*"
+          }
+        ]
+      },
+      "guest": {
+        "acls": [
+          {
+            "role": "guest",
+            "true": "/"
+          }
+        ]
+      }
+    }
+  }
+}

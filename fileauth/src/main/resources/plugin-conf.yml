@@ -26,20 +26,20 @@ plugins:
         - ViewApp
         - ViewResource
       users:
-      - user: ernie
-        acls:
-        - role: admin
-          on: '/'
-      - user: paul
-        acls:
-        - role: admin
-          on: 'corp-*'
-        - role: guest
-          on: '/'
-      - user: guest
-        acls:
-        - role: guest
-          on: '/'
+        ernie:
+          acls:
+          - role: admin
+            on: '/'
+        paul:
+          acls:
+          - role: guest
+            on: '/'
+          - role: admin
+            on: 'corp-*'
+        guest:
+          acls:
+          - role: guest
+            on: '/'
 
   authentication:
     plugin: mesosphere.marathon.plugin.auth.Authenticator

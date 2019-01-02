@@ -32,9 +32,8 @@
             ]
           }
         ],
-        "users": [
-          {
-            "user": "ernie",
+        "users": {
+          "ernie": {
             "acls": [
               {
                 "role": "admin",
@@ -42,21 +41,19 @@
               }
             ]
           },
-          {
-            "user": "paul",
+          "paul": {
             "acls": [
-              {
-                "role": "admin",
-                "true": "corp-*"
-              },
               {
                 "role": "guest",
                 "true": "/"
+              },
+              {
+                "role": "admin",
+                "true": "corp-*"
               }
             ]
           },
-          {
-            "user": "guest",
+          "guest": {
             "acls": [
               {
                 "role": "guest",
@@ -64,7 +61,7 @@
               }
             ]
           }
-        ]
+        }
       }
     },
     "authentication": {
