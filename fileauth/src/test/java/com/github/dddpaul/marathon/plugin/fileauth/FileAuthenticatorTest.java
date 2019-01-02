@@ -1,5 +1,6 @@
 package com.github.dddpaul.marathon.plugin.fileauth;
 
+import com.github.dddpaul.marathon.plugin.auth.JavaIdentity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,8 +14,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 class FileAuthenticatorTest {
@@ -69,7 +69,7 @@ class FileAuthenticatorTest {
     void shouldAuthenticateForValidCredentials(String login, String password) {
         FileAuthenticator authenticator = new FileAuthenticator();
         authenticator.initialize(null, AUTHENTICATOR_CONF_JSON);
-        assertNotNull(authenticator.doAuth(login, password));
+        assertEquals(new JavaIdentity(login), authenticator.doAuth(login, password));
     }
 
     @ParameterizedTest

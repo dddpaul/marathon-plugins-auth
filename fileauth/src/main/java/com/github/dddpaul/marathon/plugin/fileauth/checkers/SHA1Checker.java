@@ -18,7 +18,7 @@ public class SHA1Checker implements PasswordChecker {
         }
         String crypt = SHA1.getPrefix() + Base64.getEncoder().encodeToString(sha1(password));
         return crypt.equals(user.getPassword())
-                ? new JavaIdentity(user.getUser())
+                ? new JavaIdentity(user.getLogin())
                 : null;
     }
 }

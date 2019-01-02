@@ -13,7 +13,7 @@ public class BcryptChecker implements PasswordChecker {
             return null;
         }
         return BCrypt.verifyer().verify(password.toCharArray(), user.getPassword()).verified
-                ? new JavaIdentity(user.getUser())
+                ? new JavaIdentity(user.getLogin())
                 : null;
     }
 }

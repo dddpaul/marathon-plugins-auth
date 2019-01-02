@@ -18,7 +18,7 @@ public class MD5Checker implements PasswordChecker {
         String salt = StringUtils.substringBeforeLast(user.getPassword(), "$");
         String crypt = Md5Crypt.md5Crypt(password.getBytes(), salt, MD5.getPrefix());
         return crypt.equals(user.getPassword())
-                ? new JavaIdentity(user.getUser())
+                ? new JavaIdentity(user.getLogin())
                 : null;
     }
 }

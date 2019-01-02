@@ -13,7 +13,7 @@ public interface PasswordChecker {
 
     static PasswordChecker Default() {
         return (user, password) -> user != null && Objects.equals(password, user.getPassword())
-                ? new JavaIdentity(user.getUser())
+                ? new JavaIdentity(user.getLogin())
                 : null;
     }
 }

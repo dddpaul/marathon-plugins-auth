@@ -3,23 +3,28 @@ package com.github.dddpaul.marathon.plugin.fileauth.entities;
 import java.util.Objects;
 
 public class User {
-    private String user;
+    private String login;
     private String password;
 
     public User() {
     }
 
-    public User(String user, String password) {
-        this.user = user;
+    public User(String login, String password) {
+        this.login = login;
         this.password = password;
     }
 
-    public String getUser() {
-        return user;
+    public String getLogin() {
+        return login;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public User setLogin(String login) {
+        this.login = login;
+        return this;
     }
 
     @Override
@@ -27,12 +32,12 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user1 = (User) o;
-        return Objects.equals(user, user1.user) &&
+        return Objects.equals(login, user1.login) &&
                 Objects.equals(password, user1.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(user, password);
+        return Objects.hash(login, password);
     }
 }
