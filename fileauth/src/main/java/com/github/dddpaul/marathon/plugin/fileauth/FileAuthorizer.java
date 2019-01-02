@@ -5,6 +5,9 @@ import com.github.dddpaul.marathon.plugin.auth.Action;
 import com.github.dddpaul.marathon.plugin.auth.JavaIdentity;
 import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthorizerConfigurationHolder;
 import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthorizerConfigurationHolder.AuthorizerConfiguration;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.Acl;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.AclUser;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.Role;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.plugin.auth.AuthorizedResource;
 import mesosphere.marathon.plugin.auth.Authorizer;
@@ -38,15 +41,33 @@ public class FileAuthorizer implements Authorizer, PluginConfiguration {
     @Override
     public <Resource> boolean isAuthorized(Identity principal, AuthorizedAction<Resource> action, Resource resource) {
         logger.info("Principal = {}, action = {}, path = {}", principal.toString(), action.toString(), resource.toString());
-        if (principal instanceof JavaIdentity) {
-            JavaIdentity identity = (JavaIdentity) principal;
-            if (resource instanceof AppDefinition) {
-                return isAuthorizedForApp(identity, Action.byAction(action), (AppDefinition) resource);
+
+        if (!(principal instanceof JavaIdentity)) {
+            return false;
+        }
+        JavaIdentity identity = (JavaIdentity) principal;
+
+        AclUser user = configuration.getUsers().get(identity.getName());
+        if (user == null) {
+            return false;
+        }
+
+        for (Acl acl : user.getAcls()) {
+            Role role = configuration.getRoles().get(acl.getRole());
+            if (role == null) {
+                // User role is not defined
+                return false;
             }
-            if (resource instanceof AuthorizedResource) {
-                return isAuthorizedForResource(identity, Action.byAction(action), (AuthorizedResource) resource);
+
+            if (role.getActions().contains(Action.byAction(action).name())) {
+                if (resource instanceof AppDefinition) {
+                    if (acl.getPath().equals(((AppDefinition) resource).id().toString())) {
+                        return true;
+                    }
+                }
             }
         }
+
         return false;
     }
 

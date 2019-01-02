@@ -20,6 +20,16 @@ public enum Action {
     DeleteResource(DeleteResource$.MODULE$),
     ViewResource(ViewResource$.MODULE$);
 
+    private final AuthorizedAction<?> action;
+
+    Action(AuthorizedAction<?> action) {
+        this.action = action;
+    }
+
+    public AuthorizedAction<?> getAction() {
+        return action;
+    }
+
     public static Action byAction(AuthorizedAction<?> action) {
         for (Action a : values()) {
             if (a.action.equals(action)) {
@@ -27,11 +37,5 @@ public enum Action {
             }
         }
         throw new IllegalArgumentException("Unknown Action: " + action);
-    }
-
-    private final AuthorizedAction<?> action;
-
-    Action(AuthorizedAction<?> action) {
-        this.action = action;
     }
 }

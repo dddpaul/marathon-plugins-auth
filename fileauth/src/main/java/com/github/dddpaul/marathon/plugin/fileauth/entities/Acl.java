@@ -2,13 +2,13 @@ package com.github.dddpaul.marathon.plugin.fileauth.entities;
 
 public class Acl {
     private String role;
-    private String on;
+    private String path;
 
     public String getRole() {
         return role;
     }
 
-    public String getOn() {
-        return on;
+    public String getPath() {
+        return path;
     }
 }

@@ -1,5 +1,11 @@
 package com.github.dddpaul.marathon.plugin.fileauth;
 
+import com.github.dddpaul.marathon.plugin.auth.Action;
+import com.github.dddpaul.marathon.plugin.auth.JavaIdentity;
+import mesosphere.marathon.Protos;
+import mesosphere.marathon.plugin.auth.AuthorizedAction;
+import mesosphere.marathon.state.AppDefinition;
+import org.apache.mesos.Protos.CommandInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,36 +30,20 @@ class FileAuthorizerTest {
 
     static Stream<Arguments> validUsers() {
         return Stream.of(
-                Arguments.of("ernie", "ernie"),
-                Arguments.of("paul", "qwerty"),
-                Arguments.of("guest", "12345"),
-                Arguments.of("md5_user", "qwe"),
-                Arguments.of("sha1_user", "qwe"),
-                Arguments.of("bcrypt_user", "qwe")
+                Arguments.of("guest", "/", Action.ViewApp),
+                Arguments.of("guest", "/", Action.ViewGroup),
+                Arguments.of("guest", "/", Action.ViewResource),
+                Arguments.of("ernie", "/", Action.CreateApp),
+                Arguments.of("ernie", "/", Action.UpdateGroup),
+                Arguments.of("ernie", "/", Action.DeleteResource)
         );
     }
 
     static Stream<Arguments> invalidUsers() {
         return Stream.of(
-                Arguments.of(null, null),
-                Arguments.of(null, ""),
-                Arguments.of("", null),
-                Arguments.of("", ""),
-                Arguments.of("", "invalid"),
-                Arguments.of("invalid", ""),
-                Arguments.of("invalid", "invalid"),
-                Arguments.of("ernie", null),
-                Arguments.of("ernie", ""),
-                Arguments.of("ernie", "invalid"),
-                Arguments.of("md5_user", null),
-                Arguments.of("md5_user", ""),
-                Arguments.of("md5_user", "invalid"),
-                Arguments.of("sha1_user", null),
-                Arguments.of("sha1_user", ""),
-                Arguments.of("sha1_user", "invalid"),
-                Arguments.of("bcrypt_user", null),
-                Arguments.of("bcrypt_user", ""),
-                Arguments.of("bcrypt_user", "invalid")
+                Arguments.of("guest", "/", Action.CreateApp),
+                Arguments.of("guest", "/", Action.UpdateGroup),
+                Arguments.of("guest", "/", Action.DeleteResource)
         );
     }
 
@@ -66,18 +56,36 @@ class FileAuthorizerTest {
 
     @ParameterizedTest
     @MethodSource("validUsers")
-    void shouldAuthorizeForValidPermissions(String login, String password) {
+    @SuppressWarnings("unchecked")
+    void shouldAuthorizeForValidPermissions(String login, String path, Action action) {
         FileAuthorizer authorizer = new FileAuthorizer();
         authorizer.initialize(null, JSON);
-        assertTrue(authorizer.isAuthorized(null, null, null));
+        AppDefinition app = AppDefinition.fromProto(
+                Protos.ServiceDefinition.newBuilder()
+                        .setId(path)
+                        .setCmd(CommandInfo.newBuilder().build())
+                        .setInstances(1)
+                        .setExecutor("")
+                        .build()
+        );
+        assertTrue(authorizer.isAuthorized(new JavaIdentity(login), (AuthorizedAction) action.getAction(), app));
     }
 
     @ParameterizedTest
     @MethodSource("invalidUsers")
-    void shouldNotAuthorizeForInvalidPermissions(String login, String password) {
+    @SuppressWarnings("unchecked")
+    void shouldNotAuthorizeForInvalidPermissions(String login, String path, Action action) {
         FileAuthorizer authorizer = new FileAuthorizer();
         authorizer.initialize(null, JSON);
-        assertFalse(authorizer.isAuthorized(null, null, null));
+        AppDefinition app = AppDefinition.fromProto(
+                Protos.ServiceDefinition.newBuilder()
+                        .setId(path)
+                        .setCmd(CommandInfo.newBuilder().build())
+                        .setInstances(1)
+                        .setExecutor("")
+                        .build()
+        );
+        assertFalse(authorizer.isAuthorized(new JavaIdentity(login), (AuthorizedAction) action.getAction(), app));
     }
 
 }
