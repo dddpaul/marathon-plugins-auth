@@ -2,6 +2,8 @@ package com.github.dddpaul.marathon.plugin.auth;
 
 import mesosphere.marathon.plugin.auth.*;
 
+import java.util.stream.Stream;
+
 /**
  * Enumeration for handling AuthorizedActions more easily in Java.
  */
@@ -31,11 +33,9 @@ public enum Action {
     }
 
     public static Action byAction(AuthorizedAction<?> action) {
-        for (Action a : values()) {
-            if (a.action.equals(action)) {
-                return a;
-            }
-        }
-        throw new IllegalArgumentException("Unknown Action: " + action);
+        return Stream.of(values())
+                .filter(a -> action.equals(a.getAction()))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("Unknown Action: " + action));
     }
 }
