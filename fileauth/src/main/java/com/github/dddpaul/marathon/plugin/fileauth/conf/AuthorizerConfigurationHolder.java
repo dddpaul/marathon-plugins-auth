@@ -2,9 +2,10 @@ package com.github.dddpaul.marathon.plugin.fileauth.conf;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.AclUser;
+import com.github.dddpaul.marathon.plugin.fileauth.entities.Permission;
 import com.github.dddpaul.marathon.plugin.fileauth.entities.Role;
 
+import java.util.List;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,15 +24,15 @@ public class AuthorizerConfigurationHolder {
         @JsonProperty("roles")
         private Map<String, Role> roles;
 
-        @JsonProperty("users")
-        private Map<String, AclUser> users;
+        @JsonProperty("permissions")
+        private Map<String, List<Permission>> permissions;
 
         public Map<String, Role> getRoles() {
             return roles;
         }
 
-        public Map<String, AclUser> getUsers() {
-            return users;
+        public Map<String, List<Permission>> getPermissions() {
+            return permissions;
         }
     }
 }

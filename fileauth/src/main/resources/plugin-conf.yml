@@ -8,36 +8,33 @@ plugins:
       roles:
         admin:
           actions:
-          - CreateGroup
-          - UpdateGroup
-          - DeleteGroup
-          - ViewGroup
-          - CreateApp
-          - UpdateApp
-          - DeleteApp
-          - ViewApp
-          - CreateResource
-          - UpdateResource
-          - DeleteResource
-          - ViewResource
+            - CreateGroup
+            - UpdateGroup
+            - DeleteGroup
+            - ViewGroup
+            - CreateApp
+            - UpdateApp
+            - DeleteApp
+            - ViewApp
+            - CreateResource
+            - UpdateResource
+            - DeleteResource
+            - ViewResource
         guest:
           actions:
-          - ViewGroup
-          - ViewApp
-          - ViewResource
-      users:
+            - ViewGroup
+            - ViewApp
+            - ViewResource
+      permissions:
         ernie:
-          acls:
           - role: admin
             path: '/'
         paul:
-          acls:
           - role: guest
             path: '/'
           - role: admin
             path: 'corp-*'
         guest:
-          acls:
           - role: guest
             path: '/'
 

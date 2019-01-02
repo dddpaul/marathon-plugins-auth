@@ -1,7 +1,9 @@
 package com.github.dddpaul.marathon.plugin.fileauth.entities;
 
-public class Acl {
+public class Permission {
+
     private String role;
+
     private String path;
 
     public String getRole() {

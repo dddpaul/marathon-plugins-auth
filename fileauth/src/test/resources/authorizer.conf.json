@@ -25,35 +25,29 @@
         ]
       }
     },
-    "users": {
-      "ernie": {
-        "acls": [
-          {
-            "role": "admin",
-            "path": "/"
-          }
-        ]
-      },
-      "paul": {
-        "acls": [
-          {
-            "role": "guest",
-            "path": "/"
-          },
-          {
-            "role": "admin",
-            "path": "corp-*"
-          }
-        ]
-      },
-      "guest": {
-        "acls": [
-          {
-            "role": "guest",
-            "path": "/"
-          }
-        ]
-      }
+    "permissions": {
+      "ernie": [
+        {
+          "role": "admin",
+          "path": "/"
+        }
+      ],
+      "paul": [
+        {
+          "role": "guest",
+          "path": "/"
+        },
+        {
+          "role": "admin",
+          "path": "corp-*"
+        }
+      ],
+      "guest": [
+        {
+          "role": "guest",
+          "path": "/"
+        }
+      ]
     }
   }
 }
