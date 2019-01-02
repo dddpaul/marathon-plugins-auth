@@ -1,5 +1,7 @@
 # Plugins for Marathon
 
+[![Build Status](https://travis-ci.com/dddpaul/marathon-plugins.svg?branch=master)](https://travis-ci.com/dddpaul/marathon-plugins)
+
 ## Marathon Plugin Dependency
 
 The Marathon plugin interface is needed to compile this package.
