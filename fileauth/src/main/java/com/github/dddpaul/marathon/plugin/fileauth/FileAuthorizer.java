@@ -61,7 +61,7 @@ public class FileAuthorizer implements Authorizer, PluginConfiguration {
 
             if (role.getActions().contains(Action.byAction(action))) {
                 if (resource instanceof AppDefinition) {
-                    if (acl.getPath().equals(((AppDefinition) resource).id().toString())) {
+                    if ((((AppDefinition) resource).id().toString()).startsWith(acl.getPath())) {
                         return true;
                     }
                 }

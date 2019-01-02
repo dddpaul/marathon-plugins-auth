@@ -33,9 +33,15 @@ class FileAuthorizerTest {
                 Arguments.of("guest", "/", Action.ViewApp),
                 Arguments.of("guest", "/", Action.ViewGroup),
                 Arguments.of("guest", "/", Action.ViewResource),
+                Arguments.of("guest", "/some/group/app", Action.ViewApp),
+                Arguments.of("guest", "/some/group", Action.ViewGroup),
+                Arguments.of("guest", "/some/resource", Action.ViewResource),
                 Arguments.of("ernie", "/", Action.CreateApp),
                 Arguments.of("ernie", "/", Action.UpdateGroup),
-                Arguments.of("ernie", "/", Action.DeleteResource)
+                Arguments.of("ernie", "/", Action.DeleteResource),
+                Arguments.of("ernie", "/some/group", Action.CreateApp),
+                Arguments.of("ernie", "/some/group", Action.UpdateGroup),
+                Arguments.of("ernie", "/some/resource", Action.DeleteResource)
         );
     }
 
