@@ -1,8 +1,8 @@
-package com.github.dddpaul.marathon.plugin.fileauth.checkers;
+package com.github.dddpaul.marathon.plugin.auth.checkers;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.github.dddpaul.marathon.plugin.fileauth.JavaIdentity;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.User;
+import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 
 public class BcryptChecker implements PasswordChecker {

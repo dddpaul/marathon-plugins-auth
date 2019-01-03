@@ -1,4 +1,4 @@
-package com.github.dddpaul.marathon.plugin.fileauth.entities;
+package com.github.dddpaul.marathon.plugin.auth.entities;
 
 import lombok.Data;
 

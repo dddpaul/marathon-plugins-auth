@@ -1,4 +1,4 @@
-package com.github.dddpaul.marathon.plugin.fileauth.checkers;
+package com.github.dddpaul.marathon.plugin.auth.checkers;
 
 import org.apache.commons.lang3.StringUtils;
 

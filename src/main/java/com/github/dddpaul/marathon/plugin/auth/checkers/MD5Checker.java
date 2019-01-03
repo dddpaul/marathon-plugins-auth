@@ -1,12 +1,12 @@
-package com.github.dddpaul.marathon.plugin.fileauth.checkers;
+package com.github.dddpaul.marathon.plugin.auth.checkers;
 
-import com.github.dddpaul.marathon.plugin.fileauth.JavaIdentity;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.User;
+import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 import org.apache.commons.codec.digest.Md5Crypt;
 import org.apache.commons.lang3.StringUtils;
 
-import static com.github.dddpaul.marathon.plugin.fileauth.checkers.CheckerRegistry.MD5;
+import static com.github.dddpaul.marathon.plugin.auth.checkers.CheckerRegistry.MD5;
 
 public class MD5Checker implements PasswordChecker {
 

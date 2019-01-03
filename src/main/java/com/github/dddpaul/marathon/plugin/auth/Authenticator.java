@@ -1,9 +1,9 @@
-package com.github.dddpaul.marathon.plugin.fileauth;
+package com.github.dddpaul.marathon.plugin.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.dddpaul.marathon.plugin.fileauth.checkers.CheckerRegistry;
-import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthenticatorConfigurationHolder;
-import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthenticatorConfigurationHolder.AuthenticatorConfiguration;
+import com.github.dddpaul.marathon.plugin.auth.checkers.CheckerRegistry;
+import com.github.dddpaul.marathon.plugin.auth.conf.AuthenticatorConfigurationHolder;
+import com.github.dddpaul.marathon.plugin.auth.conf.AuthenticatorConfigurationHolder.AuthenticatorConfiguration;
 import mesosphere.marathon.plugin.auth.Identity;
 import mesosphere.marathon.plugin.plugin.PluginConfiguration;
 import play.api.libs.json.JsObject;
@@ -11,7 +11,7 @@ import play.api.libs.json.JsObject;
 import java.io.IOException;
 import java.util.Optional;
 
-public class FileAuthenticator extends BasicAuthenticator implements PluginConfiguration {
+public class Authenticator extends BasicAuthenticator implements PluginConfiguration {
 
     private AuthenticatorConfiguration configuration;
 

@@ -2,7 +2,7 @@
 plugins:
   authorization:
     plugin: mesosphere.marathon.plugin.auth.Authorizer
-    implementation: com.github.dddpaul.marathon.plugin.fileauth.FileAuthorizer
+    implementation: com.github.dddpaul.marathon.plugin.auth.Authorizer
     enabled: true
     configuration:
       roles:
@@ -40,7 +40,7 @@ plugins:
 
   authentication:
     plugin: mesosphere.marathon.plugin.auth.Authenticator
-    implementation: com.github.dddpaul.marathon.plugin.fileauth.FileAuthenticator
+    implementation: com.github.dddpaul.marathon.plugin.auth.Authenticator
     enabled: true
     configuration:
       users:

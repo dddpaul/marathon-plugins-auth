@@ -1,8 +1,7 @@
-package com.github.dddpaul.marathon.plugin.fileauth;
+package com.github.dddpaul.marathon.plugin.auth;
 
 import akka.dispatch.ExecutionContexts;
 import akka.dispatch.Futures;
-import mesosphere.marathon.plugin.auth.Authenticator;
 import mesosphere.marathon.plugin.auth.Identity;
 import mesosphere.marathon.plugin.http.HttpRequest;
 import mesosphere.marathon.plugin.http.HttpResponse;
@@ -16,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.concurrent.Executors;
 
-public abstract class BasicAuthenticator implements Authenticator {
+public abstract class BasicAuthenticator implements mesosphere.marathon.plugin.auth.Authenticator {
 
     protected final ExecutionContext EC = ExecutionContexts.fromExecutorService(Executors.newSingleThreadExecutor());
     protected final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
@@ -27,10 +26,6 @@ public abstract class BasicAuthenticator implements Authenticator {
     }
 
     protected Identity doAuth(HttpRequest request) {
-        Identity identity = checkHeaders(request);
-        if (identity != null) {
-            return identity;
-        }
         try {
             Option<String> header = request.header("Authorization").headOption();
             if (header.isDefined() && header.get().startsWith("Basic ")) {
@@ -44,13 +39,6 @@ public abstract class BasicAuthenticator implements Authenticator {
         } catch (Exception e) {
             /* do not authenticate in case of exception */
         }
-        return null;
-    }
-
-    /**
-     * Override to bypass Basic Auth with custom HTTP headers
-     */
-    protected Identity checkHeaders(HttpRequest request) {
         return null;
     }
 

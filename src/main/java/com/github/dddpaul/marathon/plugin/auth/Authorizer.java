@@ -1,13 +1,14 @@
-package com.github.dddpaul.marathon.plugin.fileauth;
+package com.github.dddpaul.marathon.plugin.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthorizerConfigurationHolder;
-import com.github.dddpaul.marathon.plugin.fileauth.conf.AuthorizerConfigurationHolder.AuthorizerConfiguration;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.Permission;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.Role;
+import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfigurationHolder;
+import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfigurationHolder.AuthorizerConfiguration;
+import com.github.dddpaul.marathon.plugin.auth.entities.Action;
+import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.Permission;
+import com.github.dddpaul.marathon.plugin.auth.entities.Role;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.plugin.auth.AuthorizedResource;
-import mesosphere.marathon.plugin.auth.Authorizer;
 import mesosphere.marathon.plugin.auth.Identity;
 import mesosphere.marathon.plugin.http.HttpResponse;
 import mesosphere.marathon.plugin.plugin.PluginConfiguration;
@@ -20,7 +21,7 @@ import play.api.libs.json.JsObject;
 import java.io.IOException;
 import java.util.List;
 
-public class FileAuthorizer implements Authorizer, PluginConfiguration {
+public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, PluginConfiguration {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
     private AuthorizerConfiguration configuration;

@@ -1,4 +1,4 @@
-package com.github.dddpaul.marathon.plugin.fileauth;
+package com.github.dddpaul.marathon.plugin.auth;
 
 import okhttp3.Credentials;
 import okhttp3.OkHttpClient;

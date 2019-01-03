@@ -1,9 +1,9 @@
-package com.github.dddpaul.marathon.plugin.fileauth.conf;
+package com.github.dddpaul.marathon.plugin.auth.conf;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.Permission;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.Role;
+import com.github.dddpaul.marathon.plugin.auth.entities.Permission;
+import com.github.dddpaul.marathon.plugin.auth.entities.Role;
 
 import java.util.List;
 import java.util.Map;

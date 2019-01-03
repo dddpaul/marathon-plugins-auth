@@ -1,5 +1,7 @@
-package com.github.dddpaul.marathon.plugin.fileauth;
+package com.github.dddpaul.marathon.plugin.auth;
 
+import com.github.dddpaul.marathon.plugin.auth.entities.Action;
+import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
 import mesosphere.marathon.Protos;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.state.AppDefinition;
@@ -62,7 +64,7 @@ class FileAuthorizerTest {
     @MethodSource("validUsers")
     @SuppressWarnings("unchecked")
     void shouldAuthorizeForValidPermissions(String login, String path, Action action) {
-        FileAuthorizer authorizer = new FileAuthorizer();
+        Authorizer authorizer = new Authorizer();
         authorizer.initialize(null, JSON);
         AppDefinition app = AppDefinition.fromProto(
                 Protos.ServiceDefinition.newBuilder()
@@ -79,7 +81,7 @@ class FileAuthorizerTest {
     @MethodSource("invalidUsers")
     @SuppressWarnings("unchecked")
     void shouldNotAuthorizeForInvalidPermissions(String login, String path, Action action) {
-        FileAuthorizer authorizer = new FileAuthorizer();
+        Authorizer authorizer = new Authorizer();
         authorizer.initialize(null, JSON);
         AppDefinition app = AppDefinition.fromProto(
                 Protos.ServiceDefinition.newBuilder()

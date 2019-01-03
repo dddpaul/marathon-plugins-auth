@@ -1,12 +1,12 @@
-package com.github.dddpaul.marathon.plugin.fileauth.checkers;
+package com.github.dddpaul.marathon.plugin.auth.checkers;
 
-import com.github.dddpaul.marathon.plugin.fileauth.JavaIdentity;
-import com.github.dddpaul.marathon.plugin.fileauth.entities.User;
+import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 
 import java.util.Base64;
 
-import static com.github.dddpaul.marathon.plugin.fileauth.checkers.CheckerRegistry.SHA1;
+import static com.github.dddpaul.marathon.plugin.auth.checkers.CheckerRegistry.SHA1;
 import static org.apache.commons.codec.digest.DigestUtils.sha1;
 
 public class SHA1Checker implements PasswordChecker {

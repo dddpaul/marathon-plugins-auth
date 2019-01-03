@@ -1,4 +1,4 @@
-package com.github.dddpaul.marathon.plugin.fileauth;
+package com.github.dddpaul.marathon.plugin.auth.entities;
 
 import mesosphere.marathon.plugin.auth.*;
 

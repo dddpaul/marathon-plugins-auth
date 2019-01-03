@@ -3,10 +3,6 @@ buildscript {
         jcenter()
         mavenCentral()
     }
-
-    dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.2.0'
-    }
 }
 
 plugins {
@@ -61,6 +57,7 @@ wrapper {
     gradleVersion = '5.0'
     distributionUrl = 'https://services.gradle.org/distributions/gradle-5.0-all.zip'
 }
+
 buildScan {
     termsOfServiceUrl = 'https://gradle.com/terms-of-service'
     termsOfServiceAgree = 'yes'
