@@ -26,10 +26,9 @@ public class AuthenticatorConfiguration {
 
         @Override
         public User deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
-            String name = ctx.getParser().getCurrentName();
-            User user = p.readValueAs(User.class);
-            user.setLogin(name);
-            return user;
+            return p.readValueAs(User.class)
+                    .setName(ctx.getParser()
+                            .getCurrentName());
         }
     }
 }

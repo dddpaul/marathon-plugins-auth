@@ -1,10 +1,10 @@
 package com.github.dddpaul.marathon.plugin.auth.entities;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
+@Getter
 public class Role {
     private List<Action> actions;
 }

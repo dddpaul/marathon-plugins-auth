@@ -1,6 +1,6 @@
 package com.github.dddpaul.marathon.plugin.auth.checkers;
 
-import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import com.github.dddpaul.marathon.plugin.auth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 
@@ -18,7 +18,7 @@ public class SHA1Checker implements PasswordChecker {
         }
         String crypt = SHA1.getPrefix() + Base64.getEncoder().encodeToString(sha1(password));
         return crypt.equals(user.getPassword())
-                ? new JavaIdentity(user.getLogin())
+                ? new Principal(user.getName())
                 : null;
     }
 }

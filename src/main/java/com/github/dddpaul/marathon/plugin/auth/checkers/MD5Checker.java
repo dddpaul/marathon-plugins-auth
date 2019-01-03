@@ -1,6 +1,6 @@
 package com.github.dddpaul.marathon.plugin.auth.checkers;
 
-import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import com.github.dddpaul.marathon.plugin.auth.entities.User;
 import mesosphere.marathon.plugin.auth.Identity;
 import org.apache.commons.codec.digest.Md5Crypt;
@@ -18,7 +18,7 @@ public class MD5Checker implements PasswordChecker {
         String salt = StringUtils.substringBeforeLast(user.getPassword(), "$");
         String crypt = Md5Crypt.md5Crypt(password.getBytes(), salt, MD5.getPrefix());
         return crypt.equals(user.getPassword())
-                ? new JavaIdentity(user.getLogin())
+                ? new Principal(user.getName())
                 : null;
     }
 }

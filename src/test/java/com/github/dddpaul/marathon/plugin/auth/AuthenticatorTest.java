@@ -1,6 +1,6 @@
 package com.github.dddpaul.marathon.plugin.auth;
 
-import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -69,7 +69,7 @@ class AuthenticatorTest {
     void shouldAuthenticateForValidCredentials(String login, String password) {
         Authenticator authenticator = new Authenticator();
         authenticator.initialize(null, AUTHENTICATOR_CONF_JSON);
-        assertEquals(new JavaIdentity(login), authenticator.doAuth(login, password));
+        assertEquals(new Principal(login), authenticator.doAuth(login, password));
     }
 
     @ParameterizedTest
