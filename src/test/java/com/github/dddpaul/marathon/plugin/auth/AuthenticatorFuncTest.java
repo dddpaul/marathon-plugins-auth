@@ -6,6 +6,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testcontainers.containers.DockerComposeContainer;
@@ -48,7 +49,7 @@ class AuthenticatorFuncTest {
     }
 
     @ParameterizedTest
-    @MethodSource("com.github.dddpaul.marathon.plugin.auth.AuthenticatorTest#validUsers")
+    @MethodSource("com.github.dddpaul.marathon.plugin.auth.AuthenticatorTest#invalidUsers")
     void shouldNotAuthenticateForInvalidCredentials(String login, String password) throws IOException {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

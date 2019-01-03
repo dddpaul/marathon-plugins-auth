@@ -1,8 +1,7 @@
 package com.github.dddpaul.marathon.plugin.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfigurationHolder;
-import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfigurationHolder.AuthorizerConfiguration;
+import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfiguration;
 import com.github.dddpaul.marathon.plugin.auth.entities.Action;
 import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
 import com.github.dddpaul.marathon.plugin.auth.entities.Permission;
@@ -31,7 +30,7 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
         logger.info("Authorizer initialize has been called with: " + json);
         ObjectMapper mapper = new ObjectMapper();
         try {
-            configuration = mapper.readValue(json.toString(), AuthorizerConfigurationHolder.class).getConfiguration();
+            configuration = mapper.readValue(json.toString(), AuthorizerConfiguration.class);
         } catch (IOException e) {
             logger.error("Plugin authorizer configuration parsing has been failed", e);
             configuration = new AuthorizerConfiguration();

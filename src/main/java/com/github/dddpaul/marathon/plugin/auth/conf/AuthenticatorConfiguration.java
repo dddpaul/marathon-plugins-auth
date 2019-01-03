@@ -12,25 +12,14 @@ import java.io.IOException;
 import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class AuthenticatorConfigurationHolder {
+public class AuthenticatorConfiguration {
 
-    @JsonProperty("configuration")
-    private AuthenticatorConfiguration configuration;
+    @JsonProperty("users")
+    @JsonDeserialize(contentUsing = UserDeserializer.class)
+    private Map<String, User> users;
 
-    public AuthenticatorConfiguration getConfiguration() {
-        return configuration;
-    }
-
-    @JsonInclude(JsonInclude.Include.NON_NULL)
-    public static class AuthenticatorConfiguration {
-
-        @JsonProperty("users")
-        @JsonDeserialize(contentUsing = UserDeserializer.class)
-        private Map<String, User> users;
-
-        public Map<String, User> getUsers() {
-            return users;
-        }
+    public Map<String, User> getUsers() {
+        return users;
     }
 
     public static class UserDeserializer extends JsonDeserializer<User> {
