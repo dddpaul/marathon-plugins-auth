@@ -1,0 +1,59 @@
+---
+plugins:
+  authorization:
+    plugin: mesosphere.marathon.plugin.auth.Authorizer
+    implementation: com.github.dddpaul.marathon.plugin.auth.Authorizer
+    enabled: true
+    configuration:
+      roles:
+        admin:
+          actions:
+            - CreateGroup
+            - UpdateGroup
+            - DeleteGroup
+            - ViewGroup
+            - CreateApp
+            - UpdateApp
+            - DeleteApp
+            - ViewApp
+            - CreateResource
+            - UpdateResource
+            - DeleteResource
+            - ViewResource
+        guest:
+          actions:
+            - ViewGroup
+            - ViewApp
+            - ViewResource
+      permissions:
+        ernie:
+          - role: admin
+            path: '/'
+        paul:
+          - role: guest
+            path: '/'
+          - role: admin
+            path: 'corp-*'
+        guest:
+          - role: guest
+            path: '/'
+
+  authentication:
+    plugin: mesosphere.marathon.plugin.auth.Authenticator
+    implementation: com.github.dddpaul.marathon.plugin.auth.Authenticator
+    enabled: true
+    configuration:
+      users:
+        ernie:
+          password: ernie
+        paul:
+          password: qwerty
+        guest:
+          password: '12345'
+        md5_user:
+          password: '$apr1$iE9/K1ue$J81SB0ojysREtBVlRXLoa/'
+        sha1_user:
+          password: '{SHA}BW6v589SIg3i3zaEW47RcMZ+I+M='
+        bcrypt_user:
+          password: '$2y$05$wT1i4AXwdcXkCYtEHkOqUeHUMgB4o6GO/bXcW6HWjOG1MlpeLFmv6'
+
