@@ -20,6 +20,14 @@ plugins:
             - UpdateResource
             - DeleteResource
             - ViewResource
+        operator:
+          actions:
+            - ViewGroup
+            - ViewApp
+            - ViewResource
+            - UpdateGroup
+            - UpdateApp
+            - UpdateResource
         guest:
           actions:
             - ViewGroup

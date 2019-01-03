@@ -16,6 +16,16 @@
         "ViewResource"
       ]
     },
+    "operator": {
+      "actions": [
+        "ViewGroup",
+        "ViewApp",
+        "ViewResource",
+        "UpdateGroup",
+        "UpdateApp",
+        "UpdateResource"
+      ]
+    },
     "guest": {
       "actions": [
         "ViewGroup",
@@ -39,6 +49,20 @@
       {
         "role": "admin",
         "path": "corp-*"
+      }
+    ],
+    "roles_conflict": [
+      {
+        "role": "admin",
+        "path": "/some/app"
+      },
+      {
+        "role": "operator",
+        "path": "/some/app"
+      },
+      {
+        "role": "guest",
+        "path": "/some/app"
       }
     ],
     "guest": [
