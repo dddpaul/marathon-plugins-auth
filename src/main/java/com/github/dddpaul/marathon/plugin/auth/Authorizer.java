@@ -3,8 +3,8 @@ package com.github.dddpaul.marathon.plugin.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfiguration;
 import com.github.dddpaul.marathon.plugin.auth.entities.Action;
-import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import com.github.dddpaul.marathon.plugin.auth.entities.Permission;
+import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import com.github.dddpaul.marathon.plugin.auth.entities.Role;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.plugin.auth.AuthorizedResource;
@@ -39,8 +39,6 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
 
     @Override
     public <Resource> boolean isAuthorized(Identity identity, AuthorizedAction<Resource> action, Resource resource) {
-        logger.info("Principal = {}, action = {}, path = {}", identity.toString(), action.toString(), resource.toString());
-
         if (!(identity instanceof Principal)) {
             return false;
         }
@@ -48,25 +46,23 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
 
         List<Permission> permissions = configuration.getPermissions().get(principal.getName());
         if (CollectionUtils.isEmpty(permissions)) {
+            logger.warn("User {} has no permissions", principal.getName());
             return false;
         }
 
         for (Permission p : permissions) {
-            Role role = configuration.getRoles().get(p.getRole());
+            Role role = configuration.getRoles().get(p.getRoleName());
             if (role == null) {
-                // User role is not defined
-                return false;
+                logger.error("Role {} is not found", p.getRoleName());
+                continue;
             }
 
-            if (role.getActions().contains(Action.byAction(action))) {
-                if (resource instanceof AppDefinition) {
-                    if ((((AppDefinition) resource).id().toString()).startsWith(p.getPath())) {
-                        return true;
-                    }
-                }
+            if (p.check(role, action, resource)) {
+                return true;
             }
         }
 
+        logger.warn("User {} has no {} permission to {}", principal.getName(), action.toString(), resource.toString());
         return false;
     }
 
