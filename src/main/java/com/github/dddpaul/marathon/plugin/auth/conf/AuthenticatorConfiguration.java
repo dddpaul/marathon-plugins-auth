@@ -28,7 +28,7 @@ public class AuthenticatorConfiguration {
         public User deserialize(JsonParser p, DeserializationContext ctx) throws IOException {
             String name = ctx.getParser().getCurrentName();
             User user = p.readValueAs(User.class);
-            user.setLogin(name);
+            user.setName(name);
             return user;
         }
     }

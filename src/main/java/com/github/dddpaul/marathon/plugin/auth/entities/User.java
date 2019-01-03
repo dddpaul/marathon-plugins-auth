@@ -1,9 +1,8 @@
 package com.github.dddpaul.marathon.plugin.auth.entities;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
-public class User {
-    private String login;
+public class User extends JavaIdentity {
     private String password;
 }
