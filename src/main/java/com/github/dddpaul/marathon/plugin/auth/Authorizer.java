@@ -3,7 +3,7 @@ package com.github.dddpaul.marathon.plugin.auth;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfiguration;
 import com.github.dddpaul.marathon.plugin.auth.entities.Action;
-import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import com.github.dddpaul.marathon.plugin.auth.entities.Permission;
 import com.github.dddpaul.marathon.plugin.auth.entities.Role;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
@@ -38,15 +38,15 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
     }
 
     @Override
-    public <Resource> boolean isAuthorized(Identity principal, AuthorizedAction<Resource> action, Resource resource) {
-        logger.info("Principal = {}, action = {}, path = {}", principal.toString(), action.toString(), resource.toString());
+    public <Resource> boolean isAuthorized(Identity identity, AuthorizedAction<Resource> action, Resource resource) {
+        logger.info("Principal = {}, action = {}, path = {}", identity.toString(), action.toString(), resource.toString());
 
-        if (!(principal instanceof JavaIdentity)) {
+        if (!(identity instanceof Principal)) {
             return false;
         }
-        JavaIdentity identity = (JavaIdentity) principal;
+        Principal principal = (Principal) identity;
 
-        List<Permission> permissions = configuration.getPermissions().get(identity.getName());
+        List<Permission> permissions = configuration.getPermissions().get(principal.getName());
         if (CollectionUtils.isEmpty(permissions)) {
             return false;
         }
@@ -70,7 +70,7 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
         return false;
     }
 
-    private boolean isAuthorizedForApp(JavaIdentity principal, Action action, AppDefinition appInfo) {
+    private boolean isAuthorizedForApp(Principal principal, Action action, AppDefinition appInfo) {
         logger.info("Principal = {}, action = {}, path = {}", principal.getName(), action.toString(), appInfo.id().toString());
         switch (action) {
             case ViewGroup:
@@ -89,7 +89,7 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
         }
     }
 
-    private boolean isAuthorizedForResource(JavaIdentity principal, Action action, AuthorizedResource resource) {
+    private boolean isAuthorizedForResource(Principal principal, Action action, AuthorizedResource resource) {
         logger.info("Principal = {}, action = {}, resource = {}", principal.getName(), action.toString(), resource.toString());
         switch (action) {
             case ViewResource:

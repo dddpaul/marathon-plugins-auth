@@ -1,7 +1,7 @@
 package com.github.dddpaul.marathon.plugin.auth;
 
 import com.github.dddpaul.marathon.plugin.auth.entities.Action;
-import com.github.dddpaul.marathon.plugin.auth.entities.JavaIdentity;
+import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import mesosphere.marathon.Protos;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.state.AppDefinition;
@@ -74,7 +74,7 @@ class AuthorizerTest {
                         .setExecutor("")
                         .build()
         );
-        assertTrue(authorizer.isAuthorized(new JavaIdentity(login), (AuthorizedAction) action.getAction(), app));
+        assertTrue(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), app));
     }
 
     @ParameterizedTest
@@ -91,7 +91,7 @@ class AuthorizerTest {
                         .setExecutor("")
                         .build()
         );
-        assertFalse(authorizer.isAuthorized(new JavaIdentity(login), (AuthorizedAction) action.getAction(), app));
+        assertFalse(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), app));
     }
 
 }
