@@ -6,7 +6,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.condition.DisabledIfEnvironmentVariable;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.testcontainers.containers.DockerComposeContainer;
@@ -17,6 +17,7 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@DisabledIfEnvironmentVariable(named = "TESTCONTAINERS_DISABLED", matches = ".+")
 class AuthenticatorFuncTest {
 
     private static final int MARATHON_PORT = 8080;
