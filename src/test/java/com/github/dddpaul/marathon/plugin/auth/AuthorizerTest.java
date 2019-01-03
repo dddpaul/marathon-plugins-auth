@@ -23,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-class FileAuthorizerTest {
+class AuthorizerTest {
 
     private static String FILENAME = "authorizer.conf.json";
     private JsObject JSON;

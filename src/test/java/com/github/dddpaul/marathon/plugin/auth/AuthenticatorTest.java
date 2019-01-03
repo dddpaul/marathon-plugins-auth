@@ -17,7 +17,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-class FileAuthenticatorTest {
+class AuthenticatorTest {
 
     private static String AUTHENTICATOR_CONF_FILENAME = "authenticator.conf.json";
     private JsObject AUTHENTICATOR_CONF_JSON;
