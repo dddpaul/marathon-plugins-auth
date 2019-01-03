@@ -1,3 +1,8 @@
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.14'
+    id 'com.github.johnrengelman.shadow' version '4.0.3'
+}
+
 // TODO: Make the real shadow, remove deps
 dependencies {
     compile project(':auth')
@@ -7,4 +12,7 @@ dependencies {
     compile 'at.favre.lib:bcrypt:0.6.0'
 }
 
-apply plugin: 'com.github.johnrengelman.shadow'
+lombok {
+    version = '1.18.4'
+    sha256 = ""
+}
