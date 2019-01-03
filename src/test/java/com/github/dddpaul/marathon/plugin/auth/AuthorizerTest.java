@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static com.github.dddpaul.marathon.plugin.auth.entities.Action.*;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -30,26 +31,29 @@ class AuthorizerTest {
 
     static Stream<Arguments> validUsers() {
         return Stream.of(
-                Arguments.of("guest", "/", Action.ViewApp),
-                Arguments.of("guest", "/", Action.ViewGroup),
-                Arguments.of("guest", "/", Action.ViewResource),
-                Arguments.of("guest", "/some/group/app", Action.ViewApp),
-                Arguments.of("guest", "/some/group", Action.ViewGroup),
-                Arguments.of("guest", "/some/resource", Action.ViewResource),
-                Arguments.of("ernie", "/", Action.CreateApp),
-                Arguments.of("ernie", "/", Action.UpdateGroup),
-                Arguments.of("ernie", "/", Action.DeleteResource),
-                Arguments.of("ernie", "/some/group", Action.CreateApp),
-                Arguments.of("ernie", "/some/group", Action.UpdateGroup),
-                Arguments.of("ernie", "/some/resource", Action.DeleteResource)
+                Arguments.of("guest", "/", ViewApp),
+                Arguments.of("guest", "/", ViewGroup),
+                Arguments.of("guest", "/", ViewResource),
+                Arguments.of("guest", "/some/group/app", ViewApp),
+                Arguments.of("guest", "/some/group", ViewGroup),
+                Arguments.of("guest", "/some/resource", ViewResource),
+                Arguments.of("ernie", "/", CreateApp),
+                Arguments.of("ernie", "/", UpdateGroup),
+                Arguments.of("ernie", "/", DeleteResource),
+                Arguments.of("ernie", "/some/group", CreateApp),
+                Arguments.of("ernie", "/some/group", UpdateGroup),
+                Arguments.of("ernie", "/some/resource", DeleteResource),
+                Arguments.of("roles_conflict", "/some/app", CreateGroup),
+                Arguments.of("roles_conflict", "/some/app", UpdateApp),
+                Arguments.of("roles_conflict", "/some/app", ViewResource)
         );
     }
 
     static Stream<Arguments> invalidUsers() {
         return Stream.of(
-                Arguments.of("guest", "/", Action.CreateApp),
-                Arguments.of("guest", "/", Action.UpdateGroup),
-                Arguments.of("guest", "/", Action.DeleteResource)
+                Arguments.of("guest", "/", CreateApp),
+                Arguments.of("guest", "/", UpdateGroup),
+                Arguments.of("guest", "/", DeleteResource)
         );
     }
 
