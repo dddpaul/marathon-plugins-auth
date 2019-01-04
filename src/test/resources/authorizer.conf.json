@@ -44,11 +44,18 @@
     "paul": [
       {
         "role": "guest",
+        "role": "guest",
         "path": "/"
       },
       {
         "role": "admin",
         "path": "corp-*"
+      }
+    ],
+    "some-app-operator": [
+      {
+        "role": "operator",
+        "path": "/some/app"
       }
     ],
     "roles_conflict": [
