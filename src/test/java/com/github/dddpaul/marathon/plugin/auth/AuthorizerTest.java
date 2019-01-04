@@ -29,7 +29,7 @@ class AuthorizerTest {
     private static String FILENAME = "authorizer.conf.json";
     private JsObject JSON;
 
-    static Stream<Arguments> validUsers() {
+    static Stream<Arguments> validRequests() {
         return Stream.of(
                 Arguments.of("guest", "/", ViewApp),
                 Arguments.of("guest", "/", ViewGroup),
@@ -44,13 +44,15 @@ class AuthorizerTest {
                 Arguments.of("ernie", "/some/group", UpdateGroup),
                 Arguments.of("ernie", "/some/resource", DeleteResource),
                 Arguments.of("some-app-operator", "/some/app", ViewApp),
+                Arguments.of("wildcard-operator", "/some/app-server1", ViewApp),
+                Arguments.of("wildcard-operator", "/some/app-server2", ViewApp),
                 Arguments.of("roles_conflict", "/some/app", CreateGroup),
                 Arguments.of("roles_conflict", "/some/app", UpdateApp),
                 Arguments.of("roles_conflict", "/some/app", ViewResource)
         );
     }
 
-    static Stream<Arguments> invalidUsers() {
+    static Stream<Arguments> invalidRequests() {
         return Stream.of(
                 Arguments.of("guest", "/", CreateApp),
                 Arguments.of("guest", "/", UpdateGroup),
@@ -68,7 +70,7 @@ class AuthorizerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("validUsers")
+    @MethodSource("validRequests")
     @SuppressWarnings("unchecked")
     void shouldAuthorizeForValidPermissions(String login, String path, Action action) {
         Authorizer authorizer = new Authorizer();
@@ -85,7 +87,7 @@ class AuthorizerTest {
     }
 
     @ParameterizedTest
-    @MethodSource("invalidUsers")
+    @MethodSource("invalidRequests")
     @SuppressWarnings("unchecked")
     void shouldNotAuthorizeForInvalidPermissions(String login, String path, Action action) {
         Authorizer authorizer = new Authorizer();
