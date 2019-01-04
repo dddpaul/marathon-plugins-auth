@@ -1,6 +1,8 @@
-# Plugins for Marathon
+# Authentication and authorization plugin for Marathon
 
 [![Build Status](https://travis-ci.com/dddpaul/marathon-plugins.svg?branch=master)](https://travis-ci.com/dddpaul/marathon-plugins)
+
+This plugin is based on HTTP basic authentication. Authentication and authorization is performed against credentials in JSON configuration file.
 
 ## Marathon Plugin Dependency
 
@@ -13,38 +15,15 @@ In this case you have to build Marathon plugin interface library by yourself:
 2. Switch to preferred tag/version (`git checkout v1.5.1` for example).
 3. Build and publish to local Maven repo with `sbt publishM2`.
 
-
 ## Package
 
-To build the package run this command: `./gradlew clean build`
-This will compile and package all plugins.
+To build the package run this command: `./gradlew clean shadowJar`
 The resulting jars with all dependencies are put into the plugin directories: `build/libs`.
 This directories can be used directly as plugin directory for Marathon.
 
-# Using a Plugin
-1. Run `./gradlew clean build` in the repository's root directory.
-2. Locate the Plugin configuration file (look at the Plugin's README.md for a hint)).
+## Using a Plugin
+
+1. Run `./gradlew clean shadowJar` in the repository's root directory.
+2. Locate the Plugin configuration file [plugin-conf.json](src/main/resources/plugin-conf.json).
 3. Start Marathon with the following flags: `--plugin_dir <plugin_path>/build/libs --plugin_conf <path_to_the_plugin_config_file>`.
-4. Or even better - you can use [docker-compose file](fileauth/src/test/resources/docker-compose.yml).
-
-## Plugins
-
-### fileauth
-
-Authentication and Authorization Plugin performed against htpasswd file. See [README.md](fileauth/README.md).
-
-# FileAuth Plugin
-
-This authorization plugin is based on HTTP basic authentication.
-Authentication is performed against passwd file.
-
-## Usage
-
-See the [plugin configuration file](src/main/resources/plugin-conf.json).
-It allows access if username and password are the same with this permissions:
-
-- Creation is always allowed
-- View is always allowed
-- Update is allowed only, if the username is ernie
-- Deletion is allowed only on path /test (recursively)
-- KillTask is not allowed
+4. Or even better - you can use [docker-compose file](src/test/resources/docker-compose.yml).
