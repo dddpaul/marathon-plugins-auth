@@ -47,17 +47,41 @@
               "path": "/"
             }
           ],
-          "paul": [
+          "corp-admin": [
             {
               "role": "guest",
               "path": "/"
             },
             {
               "role": "admin",
-              "path": "corp-*"
+              "path": "corp-.+"
+            }
+          ],
+          "app-operator": [
+            {
+              "role": "operator",
+              "path": "/app[12]"
             }
           ],
           "guest": [
+            {
+              "role": "guest",
+              "path": "/"
+            }
+          ],
+          "md5_user": [
+            {
+              "role": "guest",
+              "path": "/"
+            }
+          ],
+          "sha1_user": [
+            {
+              "role": "guest",
+              "path": "/"
+            }
+          ],
+          "bcrypt_user": [
             {
               "role": "guest",
               "path": "/"
@@ -75,10 +99,13 @@
           "ernie": {
             "password": "ernie"
           },
-          "paul": {
+          "corp-admin": {
             "password": "qwerty"
           },
           "guest": {
+            "password": "12345"
+          },
+          "app-operator": {
             "password": "12345"
           },
           "md5_user": {

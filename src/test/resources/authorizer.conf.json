@@ -44,7 +44,6 @@
     "paul": [
       {
         "role": "guest",
-        "role": "guest",
         "path": "/"
       },
       {
@@ -56,6 +55,18 @@
       {
         "role": "operator",
         "path": "/some/app"
+      }
+    ],
+    "wildcard-operator": [
+      {
+        "role": "operator",
+        "path": "/some/app-.+"
+      }
+    ],
+    "wildcard-guest": [
+      {
+        "role": "guest",
+        "path": "/some/app[12]"
       }
     ],
     "roles_conflict": [
