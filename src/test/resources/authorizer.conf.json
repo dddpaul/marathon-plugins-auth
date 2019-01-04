@@ -63,6 +63,12 @@
         "path": "/some/app-.+"
       }
     ],
+    "wildcard-guest": [
+      {
+        "role": "guest",
+        "path": "/some/app[12]"
+      }
+    ],
     "roles_conflict": [
       {
         "role": "admin",

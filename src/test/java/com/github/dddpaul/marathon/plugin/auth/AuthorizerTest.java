@@ -44,8 +44,10 @@ class AuthorizerTest {
                 Arguments.of("ernie", "/some/group", UpdateGroup),
                 Arguments.of("ernie", "/some/resource", DeleteResource),
                 Arguments.of("some-app-operator", "/some/app", ViewApp),
-                Arguments.of("wildcard-operator", "/some/app-server1", ViewApp),
-                Arguments.of("wildcard-operator", "/some/app-server2", ViewApp),
+                Arguments.of("wildcard-operator", "/some/app-server1", UpdateApp),
+                Arguments.of("wildcard-operator", "/some/app-server2", UpdateApp),
+                Arguments.of("wildcard-guest", "/some/app1", ViewApp),
+                Arguments.of("wildcard-guest", "/some/app2", ViewApp),
                 Arguments.of("roles_conflict", "/some/app", CreateGroup),
                 Arguments.of("roles_conflict", "/some/app", UpdateApp),
                 Arguments.of("roles_conflict", "/some/app", ViewResource)
@@ -58,7 +60,9 @@ class AuthorizerTest {
                 Arguments.of("guest", "/", UpdateGroup),
                 Arguments.of("guest", "/", DeleteResource),
                 Arguments.of("some-app-operator", "/some/app", CreateApp),
-                Arguments.of("some-app-operator", "/some/other-app", ViewApp)
+                Arguments.of("some-app-operator", "/some/other-app", ViewApp),
+                Arguments.of("wildcard-operator", "/some/app_server", UpdateApp),
+                Arguments.of("wildcard-guest", "/some/app3", ViewApp)
         );
     }
 
