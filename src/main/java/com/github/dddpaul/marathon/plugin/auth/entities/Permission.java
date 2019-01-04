@@ -1,9 +1,6 @@
 package com.github.dddpaul.marathon.plugin.auth.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.util.StdConverter;
 import lombok.Getter;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.state.AppDefinition;
@@ -19,18 +16,17 @@ public class Permission {
 
     private String path;
 
-    @JsonDeserialize(converter = PatternSanitizer.class)
     private Pattern pattern;
 
-    public class PatternSanitizer extends StdConverter<Pattern, Pattern> {
-        @Override
-        public Pattern convert(Pattern pattern) {
+    public Permission setPath(String path) {
+        this.path = path;
+        if (pattern == null) {
             try {
-                return Pattern.compile(path);
-            } catch (PatternSyntaxException e) {
-                return null;
+                pattern = Pattern.compile(path);
+            } catch (PatternSyntaxException ignored) {
             }
         }
+        return this;
     }
 
     /**
