@@ -19,8 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AuthenticatorTest {
 
-    private static String AUTHENTICATOR_CONF_FILENAME = "authenticator.conf.json";
-    private JsObject AUTHENTICATOR_CONF_JSON;
+    private static String FILENAME = "authenticator.conf.json";
+    private JsObject JSON;
 
     static Stream<Arguments> validUsers() {
         return Stream.of(
@@ -59,16 +59,16 @@ class AuthenticatorTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        URL url = Optional.ofNullable(getClass().getClassLoader().getResource(AUTHENTICATOR_CONF_FILENAME))
-                .orElseThrow(() -> new RuntimeException(AUTHENTICATOR_CONF_FILENAME + " is not found"));
-        AUTHENTICATOR_CONF_JSON = (JsObject) Json.parse(Files.readAllBytes(Paths.get(url.toURI())));
+        URL url = Optional.ofNullable(getClass().getClassLoader().getResource(FILENAME))
+                .orElseThrow(() -> new RuntimeException(FILENAME + " is not found"));
+        JSON = (JsObject) Json.parse(Files.readAllBytes(Paths.get(url.toURI())));
     }
 
     @ParameterizedTest
     @MethodSource("validUsers")
     void shouldAuthenticateForValidCredentials(String login, String password) {
         Authenticator authenticator = new Authenticator();
-        authenticator.initialize(null, AUTHENTICATOR_CONF_JSON);
+        authenticator.initialize(null, JSON);
         assertEquals(new Principal(login), authenticator.doAuth(login, password));
     }
 
@@ -76,7 +76,7 @@ class AuthenticatorTest {
     @MethodSource("invalidUsers")
     void shouldNotAuthenticateForInvalidCredentials(String login, String password) {
         Authenticator authenticator = new Authenticator();
-        authenticator.initialize(null, AUTHENTICATOR_CONF_JSON);
+        authenticator.initialize(null, JSON);
         assertNull(authenticator.doAuth(login, password));
     }
 }
