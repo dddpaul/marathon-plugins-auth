@@ -14,7 +14,7 @@ plugins {
 
 ext {
     scalaVersion = '2.11'
-    marathonVersion = '1.5.1'
+    marathonVersion = '1.5.11'
     junitVersion = '5.3.1'
 }
 

@@ -7,19 +7,19 @@ This plugin is based on HTTP basic authentication. Authentication and authorizat
 ## Marathon Plugin Dependency
 
 The Marathon plugin interface is needed to compile this package.
-It's specified like  `compileOnly "mesosphere.marathon:plugin-interface_2.11:1.5.1"` for Gradle.
+It's specified like  `compileOnly "mesosphere.marathon:plugin-interface_2.11:1.5.11"` for Gradle.
 But Mesosphere [Maven repository](http://downloads.mesosphere.io/maven) may lack some Marathon versions.
 In this case you have to build Marathon plugin interface library by yourself:
 
 1. Go grab the [Marathon sources](https://github.com/mesosphere/marathon).
-2. Switch to preferred tag/version (`git checkout v1.5.1` for example).
+2. Switch to preferred tag/version (`git checkout v1.5.11` for example).
 3. Build and publish to local Maven repo with `sbt publishM2`.
 
-## Package
+## Building a Plugin
 
-To build the package run this command: `./gradlew clean shadowJar`
-The resulting jars with all dependencies are put into the plugin directories: `build/libs`.
-This directories can be used directly as plugin directory for Marathon.
+To build the plugin run this command: `./gradlew clean shadowJar`.
+The resulting uber-jar with all dependencies are put into the `build/libs` directory.
+This directory can be used directly as plugin directory for Marathon.
 
 ## Using a Plugin
 
