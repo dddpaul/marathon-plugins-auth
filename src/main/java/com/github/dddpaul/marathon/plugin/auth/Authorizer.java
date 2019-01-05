@@ -76,13 +76,13 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
         logger.info("Principal = {}, action = {}, path = {}", principal.getName(), action.toString(), appInfo.id().toString());
         switch (action) {
             case ViewGroup:
-            case ViewApp:
+            case ViewRunSpec:
             case CreateGroup:
             case UpdateGroup:
                 return true;
-            case CreateApp:
-            case UpdateApp:
-            case DeleteApp:
+            case CreateRunSpec:
+            case UpdateRunSpec:
+            case DeleteRunSpec:
                 return principal.getName().contains("ernie");
             case DeleteGroup:
                 return appInfo.id().toString().startsWith("/test");

@@ -33,42 +33,42 @@ class AuthorizerTest {
 
     static Stream<Arguments> validRequests() {
         return Stream.of(
-                Arguments.of("guest", "/", ViewApp),
+                Arguments.of("guest", "/", ViewRunSpec),
                 Arguments.of("guest", "/", ViewGroup),
                 Arguments.of("guest", "/", ViewResource),
-                Arguments.of("guest", "/some/group/app", ViewApp),
+                Arguments.of("guest", "/some/group/app", ViewRunSpec),
                 Arguments.of("guest", "/some/group", ViewGroup),
                 Arguments.of("guest", "/some/resource", ViewResource),
-                Arguments.of("ernie", "/", CreateApp),
+                Arguments.of("ernie", "/", CreateRunSpec),
                 Arguments.of("ernie", "/", UpdateGroup),
                 Arguments.of("ernie", "/", DeleteResource),
-                Arguments.of("ernie", "/some/group", CreateApp),
+                Arguments.of("ernie", "/some/group", CreateRunSpec),
                 Arguments.of("ernie", "/some/group", UpdateGroup),
                 Arguments.of("ernie", "/some/resource", DeleteResource),
-                Arguments.of("ernie", "/some/group", CreateApp),
+                Arguments.of("ernie", "/some/group", CreateRunSpec),
                 Arguments.of("ernie", "/some/group", UpdateGroup),
-                Arguments.of("corp-admin", "/", ViewApp),
-                Arguments.of("corp-admin", "/corp-app1", CreateApp),
-                Arguments.of("wildcard-operator", "/some/app-server1", UpdateApp),
-                Arguments.of("wildcard-operator", "/some/app-server2", UpdateApp),
-                Arguments.of("wildcard-guest", "/some/app1", ViewApp),
-                Arguments.of("wildcard-guest", "/some/app2", ViewApp),
+                Arguments.of("corp-admin", "/", ViewRunSpec),
+                Arguments.of("corp-admin", "/corp-app1", CreateRunSpec),
+                Arguments.of("wildcard-operator", "/some/app-server1", UpdateRunSpec),
+                Arguments.of("wildcard-operator", "/some/app-server2", UpdateRunSpec),
+                Arguments.of("wildcard-guest", "/some/app1", ViewRunSpec),
+                Arguments.of("wildcard-guest", "/some/app2", ViewRunSpec),
                 Arguments.of("roles_conflict", "/some/app", CreateGroup),
-                Arguments.of("roles_conflict", "/some/app", UpdateApp),
+                Arguments.of("roles_conflict", "/some/app", UpdateRunSpec),
                 Arguments.of("roles_conflict", "/some/app", ViewResource)
         );
     }
 
     static Stream<Arguments> invalidRequests() {
         return Stream.of(
-                Arguments.of("guest", "/", CreateApp),
+                Arguments.of("guest", "/", CreateRunSpec),
                 Arguments.of("guest", "/", UpdateGroup),
                 Arguments.of("guest", "/", DeleteResource),
-                Arguments.of("corp-admin", "/", CreateApp),
-                Arguments.of("some-app-operator", "/some/app", CreateApp),
-                Arguments.of("some-app-operator", "/some/other-app", ViewApp),
-                Arguments.of("wildcard-operator", "/some/app_server", UpdateApp),
-                Arguments.of("wildcard-guest", "/some/app3", ViewApp)
+                Arguments.of("corp-admin", "/", CreateRunSpec),
+                Arguments.of("some-app-operator", "/some/app", CreateRunSpec),
+                Arguments.of("some-app-operator", "/some/other-app", ViewRunSpec),
+                Arguments.of("wildcard-operator", "/some/app_server", UpdateRunSpec),
+                Arguments.of("wildcard-guest", "/some/app3", ViewRunSpec)
         );
     }
 

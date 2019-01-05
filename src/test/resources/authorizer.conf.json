@@ -6,10 +6,10 @@
         "UpdateGroup",
         "DeleteGroup",
         "ViewGroup",
-        "CreateApp",
-        "UpdateApp",
-        "DeleteApp",
-        "ViewApp",
+        "CreateRunSpec",
+        "UpdateRunSpec",
+        "DeleteRunSpec",
+        "ViewRunSpec",
         "CreateResource",
         "UpdateResource",
         "DeleteResource",
@@ -19,17 +19,17 @@
     "operator": {
       "actions": [
         "ViewGroup",
-        "ViewApp",
+        "ViewRunSpec",
         "ViewResource",
         "UpdateGroup",
-        "UpdateApp",
+        "UpdateRunSpec",
         "UpdateResource"
       ]
     },
     "guest": {
       "actions": [
         "ViewGroup",
-        "ViewApp",
+        "ViewRunSpec",
         "ViewResource"
       ]
     }
