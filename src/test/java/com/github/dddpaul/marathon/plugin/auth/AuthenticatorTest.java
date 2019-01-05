@@ -25,7 +25,7 @@ class AuthenticatorTest {
     static Stream<Arguments> validUsers() {
         return Stream.of(
                 Arguments.of("ernie", "ernie"),
-                Arguments.of("paul", "qwerty"),
+                Arguments.of("corp-admin", "qwerty"),
                 Arguments.of("guest", "12345"),
                 Arguments.of("md5_user", "qwe"),
                 Arguments.of("sha1_user", "qwe"),
@@ -67,16 +67,26 @@ class AuthenticatorTest {
     @ParameterizedTest
     @MethodSource("validUsers")
     void shouldAuthenticateForValidCredentials(String login, String password) {
+        // given
         Authenticator authenticator = new Authenticator();
+
+        // when
         authenticator.initialize(null, JSON);
+
+        // then
         assertEquals(new Principal(login), authenticator.doAuth(login, password));
     }
 
     @ParameterizedTest
     @MethodSource("invalidUsers")
     void shouldNotAuthenticateForInvalidCredentials(String login, String password) {
+        // given
         Authenticator authenticator = new Authenticator();
+
+        // when
         authenticator.initialize(null, JSON);
+
+        // then
         assertNull(authenticator.doAuth(login, password));
     }
 }

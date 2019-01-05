@@ -7,6 +7,7 @@ import mesosphere.marathon.plugin.auth.Identity;
 @Getter
 @EqualsAndHashCode
 @RequiredArgsConstructor
+@ToString
 public class Principal implements Identity {
     private final String name;
 }

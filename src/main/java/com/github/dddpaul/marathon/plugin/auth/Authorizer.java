@@ -2,16 +2,13 @@ package com.github.dddpaul.marathon.plugin.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.dddpaul.marathon.plugin.auth.conf.AuthorizerConfiguration;
-import com.github.dddpaul.marathon.plugin.auth.entities.Action;
 import com.github.dddpaul.marathon.plugin.auth.entities.Permission;
 import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import com.github.dddpaul.marathon.plugin.auth.entities.Role;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
-import mesosphere.marathon.plugin.auth.AuthorizedResource;
 import mesosphere.marathon.plugin.auth.Identity;
 import mesosphere.marathon.plugin.http.HttpResponse;
 import mesosphere.marathon.plugin.plugin.PluginConfiguration;
-import mesosphere.marathon.state.AppDefinition;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +43,7 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
 
         List<Permission> permissions = configuration.getPermissions().get(principal.getName());
         if (CollectionUtils.isEmpty(permissions)) {
-            logger.warn("User {} has no permissions", principal.getName());
+            logger.warn("{} has no permissions at all", principal);
             return false;
         }
 
@@ -57,42 +54,17 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
                 continue;
             }
 
-            if (p.check(role, action, resource)) {
-                return true;
+            try {
+                if (p.check(role, action, resource)) {
+                    return true;
+                }
+            } catch (Exception e) {
+                logger.error("{} permission check error for {}", action, principal, e);
             }
         }
 
-        logger.warn("User {} has no {} permission to {}", principal.getName(), action.toString(), resource.toString());
+        logger.warn("{} has no {} permission to {}", principal, action, resource);
         return false;
-    }
-
-    private boolean isAuthorizedForApp(Principal principal, Action action, AppDefinition appInfo) {
-        logger.info("Principal = {}, action = {}, path = {}", principal.getName(), action.toString(), appInfo.id().toString());
-        switch (action) {
-            case ViewGroup:
-            case ViewApp:
-            case CreateGroup:
-            case UpdateGroup:
-                return true;
-            case CreateApp:
-            case UpdateApp:
-            case DeleteApp:
-                return principal.getName().contains("ernie");
-            case DeleteGroup:
-                return appInfo.id().toString().startsWith("/test");
-            default:
-                return false;
-        }
-    }
-
-    private boolean isAuthorizedForResource(Principal principal, Action action, AuthorizedResource resource) {
-        logger.info("Principal = {}, action = {}, resource = {}", principal.getName(), action.toString(), resource.toString());
-        switch (action) {
-            case ViewResource:
-                return true;
-            default:
-                return false;
-        }
     }
 
     @Override
