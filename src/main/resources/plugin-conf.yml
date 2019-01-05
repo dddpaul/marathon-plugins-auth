@@ -41,7 +41,7 @@ plugins:
           - role: guest
             path: '/'
           - role: admin
-            path: 'corp-.+'
+            path: '/corp-.+'
         app-operator:
           - role: operator
             path: '/app[12]'

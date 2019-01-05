@@ -54,7 +54,7 @@
             },
             {
               "role": "admin",
-              "path": "corp-.+"
+              "path": "/corp-.+"
             }
           ],
           "app-operator": [
