@@ -13,7 +13,7 @@ In this case you have to build Marathon plugin interface library by yourself:
 
 1. Go grab the [Marathon sources](https://github.com/mesosphere/marathon).
 2. Switch to preferred tag/version (`git checkout v1.5.11` for example).
-3. Build and publish to local Maven repo with `sbt publishM2`.
+3. Build and publish to local Maven repo with `sbt publishM2; sbt plugin-interface/publishM2`.
 
 ## Building a Plugin
 
