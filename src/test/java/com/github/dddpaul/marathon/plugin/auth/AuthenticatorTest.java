@@ -25,7 +25,7 @@ class AuthenticatorTest {
     static Stream<Arguments> validUsers() {
         return Stream.of(
                 Arguments.of("ernie", "ernie"),
-                Arguments.of("paul", "qwerty"),
+                Arguments.of("corp-admin", "qwerty"),
                 Arguments.of("guest", "12345"),
                 Arguments.of("md5_user", "qwe"),
                 Arguments.of("sha1_user", "qwe"),
