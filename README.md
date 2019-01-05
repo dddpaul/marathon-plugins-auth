@@ -18,17 +18,19 @@ In this case you have to build Marathon plugin interface library by yourself:
 ## Building a Plugin
 
 To build the plugin run this command: `./gradlew clean shadowJar`.
-The resulting uber-jar with all dependencies are put into the `build/libs` directory.
+The resulting uber-jar with all dependencies is put into the `build/libs` directory.
 This directory can be used directly as plugin directory for Marathon.
 
 ## Using a Plugin
 
 1. Run `./gradlew clean shadowJar` in the repository's root directory.
-2. Locate the Plugin configuration file [plugin-conf.json](src/main/resources/plugin-conf.json).
+2. Locate and update the Plugin configuration file [plugin-conf.json](src/main/resources/plugin-conf.json).
 3. Start Marathon with the following flags: `--plugin_dir <plugin_path>/build/libs --plugin_conf <path_to_the_plugin_config_file>`.
-4. Or even better - you can use [docker-compose file](src/test/resources/docker-compose.yml).
+4. Or even better - you can use [docker-compose file](src/test/resources/docker-compose.yml) or [shell script wrapper](docker-compose.sh).
 
-## Actions
+## Marathon actions
+
+See full list of actions in [Action](src/main/java/com/github/dddpaul/marathon/plugin/auth/entities/Action.java) enum class.
 
 Some hints and caveats:
 
