@@ -47,7 +47,7 @@ public abstract class BasicAuthenticator implements mesosphere.marathon.plugin.a
     @Override
     public void handleNotAuthenticated(HttpRequest request, HttpResponse response) {
         response.status(401);
-        response.header("WWW-Authenticate", "Basic realm=\"Marathon: Username==Password\"");
+        response.header("WWW-Authenticate", "Basic realm=Marathon");
         response.body("application/json", "{\"problem\": \"Not Authenticated!\"}".getBytes());
     }
 }
