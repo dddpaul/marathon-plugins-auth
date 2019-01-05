@@ -27,3 +27,10 @@ This directories can be used directly as plugin directory for Marathon.
 2. Locate the Plugin configuration file [plugin-conf.json](src/main/resources/plugin-conf.json).
 3. Start Marathon with the following flags: `--plugin_dir <plugin_path>/build/libs --plugin_conf <path_to_the_plugin_config_file>`.
 4. Or even better - you can use [docker-compose file](src/test/resources/docker-compose.yml).
+
+## Actions
+
+Some hints and caveats:
+
+* `ViewGroup` on `/` is necessary to `Create Application` in root space
+* `CreateRunSpec` on `group` is necessary to create this group
