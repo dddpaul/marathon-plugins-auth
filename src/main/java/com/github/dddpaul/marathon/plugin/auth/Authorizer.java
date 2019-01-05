@@ -39,6 +39,8 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
 
     @Override
     public <Resource> boolean isAuthorized(Identity identity, AuthorizedAction<Resource> action, Resource resource) {
+        logger.info("Principal = {}, action = {}, resource = {}", identity, action, resource);
+
         if (!(identity instanceof Principal)) {
             return false;
         }
