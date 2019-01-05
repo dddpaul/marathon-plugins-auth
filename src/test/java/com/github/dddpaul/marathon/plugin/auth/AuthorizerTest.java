@@ -3,8 +3,9 @@ package com.github.dddpaul.marathon.plugin.auth;
 import com.github.dddpaul.marathon.plugin.auth.entities.Action;
 import com.github.dddpaul.marathon.plugin.auth.entities.Principal;
 import mesosphere.marathon.Protos;
-import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.state.AppDefinition;
+import mesosphere.marathon.state.Group;
+import mesosphere.marathon.state.PathId;
 import org.apache.mesos.Protos.CommandInfo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,6 +13,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import play.api.libs.json.JsObject;
 import play.api.libs.json.Json;
+import scala.collection.immutable.Set;
 
 import java.net.URL;
 import java.nio.file.Files;
@@ -75,20 +77,30 @@ class AuthorizerTest {
 
     @ParameterizedTest
     @MethodSource("validRequests")
-    @SuppressWarnings("unchecked")
     void shouldAuthorizeForValidPermissions(String login, String path, Action action) {
+        // given
         Authorizer authorizer = new Authorizer();
+
+        // when
         authorizer.initialize(null, JSON);
-        assertTrue(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), newApp(path)));
+
+        // then
+        assertTrue(authorizer.isAuthorized(new Principal(login), action.getAction(), newApp(path)));
+        assertTrue(authorizer.isAuthorized(new Principal(login), action.getAction(), newGroup(path)));
     }
 
     @ParameterizedTest
     @MethodSource("invalidRequests")
-    @SuppressWarnings("unchecked")
     void shouldNotAuthorizeForInvalidPermissions(String login, String path, Action action) {
+        // given
         Authorizer authorizer = new Authorizer();
+
+        // when
         authorizer.initialize(null, JSON);
-        assertFalse(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), newApp(path)));
+
+        // then
+        assertFalse(authorizer.isAuthorized(new Principal(login), action.getAction(), newApp(path)));
+        assertFalse(authorizer.isAuthorized(new Principal(login), action.getAction(), newGroup(path)));
     }
 
     private AppDefinition newApp(String path) {
@@ -100,5 +112,9 @@ class AuthorizerTest {
                         .setExecutor("")
                         .build()
         );
+    }
+
+    private Group newGroup(String path) {
+        return Group.empty(new PathId(new Set.Set1<>(path).<String>toBuffer().toList(), false));
     }
 }

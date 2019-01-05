@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
 import mesosphere.marathon.state.AppDefinition;
+import mesosphere.marathon.state.Group;
+import mesosphere.marathon.state.PathId;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -34,14 +36,19 @@ public class Permission {
      */
     public <Resource> boolean check(Role role, AuthorizedAction<?> action, Resource resource) {
         if (role.contains(action)) {
+            PathId pathId;
             if (resource instanceof AppDefinition) {
-                AppDefinition app = (AppDefinition) resource;
-                if (app.id().toString().startsWith(path)) {
-                    return true;
-                }
-                if (pattern != null) {
-                    return pattern.matcher(app.id().toString()).matches();
-                }
+                pathId = ((AppDefinition) resource).id();
+            } else if (resource instanceof Group) {
+                pathId = ((Group) resource).id();
+            } else {
+                throw new RuntimeException("Unsupported resource: " + resource);
+            }
+            if (pathId.toString().startsWith(path)) {
+                return true;
+            }
+            if (pattern != null) {
+                return pattern.matcher(pathId.toString()).matches();
             }
         }
         return false;

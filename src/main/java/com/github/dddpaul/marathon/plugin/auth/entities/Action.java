@@ -1,6 +1,5 @@
 package com.github.dddpaul.marathon.plugin.auth.entities;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import mesosphere.marathon.plugin.auth.*;
 
@@ -9,7 +8,6 @@ import java.util.stream.Stream;
 /**
  * Enumeration for handling AuthorizedActions more easily in Java.
  */
-@Getter
 @RequiredArgsConstructor
 public enum Action {
 
@@ -27,6 +25,11 @@ public enum Action {
     ViewResource(ViewResource$.MODULE$);
 
     private final AuthorizedAction<?> action;
+
+    @SuppressWarnings("unchecked")
+    public <Resource> AuthorizedAction<Resource> getAction() {
+        return (AuthorizedAction<Resource>) action;
+    }
 
     public static Action byAction(AuthorizedAction<?> action) {
         return Stream.of(values())

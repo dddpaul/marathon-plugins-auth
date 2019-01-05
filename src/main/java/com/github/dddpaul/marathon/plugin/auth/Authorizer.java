@@ -46,7 +46,7 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
 
         List<Permission> permissions = configuration.getPermissions().get(principal.getName());
         if (CollectionUtils.isEmpty(permissions)) {
-            logger.warn("User {} has no permissions at all", principal.getName());
+            logger.warn("{} has no permissions at all", principal);
             return false;
         }
 
@@ -57,12 +57,16 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
                 continue;
             }
 
-            if (p.check(role, action, resource)) {
-                return true;
+            try {
+                if (p.check(role, action, resource)) {
+                    return true;
+                }
+            } catch (Exception e) {
+                logger.error("{} permission check error for {}: {}", action, principal, e);
             }
         }
 
-        logger.warn("User {} has no {} permission to {}", principal.getName(), action.toString(), resource.toString());
+        logger.warn("{} has no {} permission to {}", principal, action, resource);
         return false;
     }
 
