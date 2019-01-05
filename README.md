@@ -34,4 +34,4 @@ Some hints and caveats:
 
 * `ViewGroup` on `/` is necessary to `Create Application` in root space
 * `CreateRunSpec` on `group` is necessary to create this group
-* `ViewResource` on `mesosphere.marathon.plugin.auth.AuthorizedResource.Plugins` resource is checked on every request; this type of resource has no path and it's unreachable from Java
+* `ViewResource` on `mesosphere.marathon.plugin.auth.AuthorizedResource.*` resources are checked on almost every request; they are being code-generated and require special handling
