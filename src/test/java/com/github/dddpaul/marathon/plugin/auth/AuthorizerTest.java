@@ -79,15 +79,7 @@ class AuthorizerTest {
     void shouldAuthorizeForValidPermissions(String login, String path, Action action) {
         Authorizer authorizer = new Authorizer();
         authorizer.initialize(null, JSON);
-        AppDefinition app = AppDefinition.fromProto(
-                Protos.ServiceDefinition.newBuilder()
-                        .setId(path)
-                        .setCmd(CommandInfo.newBuilder().build())
-                        .setInstances(1)
-                        .setExecutor("")
-                        .build()
-        );
-        assertTrue(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), app));
+        assertTrue(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), newApp(path)));
     }
 
     @ParameterizedTest
@@ -96,7 +88,11 @@ class AuthorizerTest {
     void shouldNotAuthorizeForInvalidPermissions(String login, String path, Action action) {
         Authorizer authorizer = new Authorizer();
         authorizer.initialize(null, JSON);
-        AppDefinition app = AppDefinition.fromProto(
+        assertFalse(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), newApp(path)));
+    }
+
+    private AppDefinition newApp(String path) {
+        return AppDefinition.fromProto(
                 Protos.ServiceDefinition.newBuilder()
                         .setId(path)
                         .setCmd(CommandInfo.newBuilder().build())
@@ -104,7 +100,5 @@ class AuthorizerTest {
                         .setExecutor("")
                         .build()
         );
-        assertFalse(authorizer.isAuthorized(new Principal(login), (AuthorizedAction) action.getAction(), app));
     }
-
 }
