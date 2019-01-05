@@ -45,7 +45,6 @@ public class Permission {
                 // These types of resources seems to be code-generated
                 return true;
             } else {
-                System.out.println(resource.getClass().toString());
                 throw new RuntimeException("Unsupported resource: " + resource);
             }
             if (pathId.toString().startsWith(path)) {
