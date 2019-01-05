@@ -41,14 +41,14 @@
         "path": "/"
       }
     ],
-    "paul": [
+    "corp-admin": [
       {
         "role": "guest",
         "path": "/"
       },
       {
         "role": "admin",
-        "path": "corp-*"
+        "path": "/corp-.+"
       }
     ],
     "some-app-operator": [
