@@ -12,8 +12,14 @@ plugins {
     id 'java'
 }
 
+ext {
+    scalaVersion = '2.11'
+    marathonVersion = '1.5.1'
+    junitVersion = '5.3.1'
+}
+
 group = 'com.github.dddpaul.marathon'
-version = '0.0.1-SNAPSHOT'
+version = "$marathonVersion-0.0.1-SNAPSHOT"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -33,21 +39,16 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     compile 'at.favre.lib:bcrypt:0.6.0'
 
-    // TODO: Move scala and marathon versions to properties
-    compileOnly "mesosphere.marathon:marathon_2.11:1.5.1"
-    compileOnly "mesosphere.marathon:plugin-interface_2.11:1.5.1"
-    compileOnly "com.typesafe.scala-logging:scala-logging_2.11:3.7.2"
-    compileOnly "com.typesafe.akka:akka-actor_2.11:2.5.17"
+    compileOnly "mesosphere.marathon:marathon_$scalaVersion:$marathonVersion"
+    compileOnly "mesosphere.marathon:plugin-interface_$scalaVersion:$marathonVersion"
 
-    testCompile "mesosphere.marathon:marathon_2.11:1.5.1"
-    testCompile "mesosphere.marathon:plugin-interface_2.11:1.5.1"
-    testCompile "com.typesafe.akka:akka-actor_2.11:2.5.17"
-    testCompile "org.testcontainers:testcontainers:1.9.1"
-    testCompile "com.squareup.okhttp3:okhttp:3.11.0"
-    testCompile 'org.slf4j:slf4j-simple:1.7.25'
-    testCompile('org.junit.jupiter:junit-jupiter-api:5.3.1')
-    testCompile('org.junit.jupiter:junit-jupiter-params:5.3.1')
-    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.3.1')
+    testCompile "mesosphere.marathon:marathon_$scalaVersion:$marathonVersion"
+    testCompile "mesosphere.marathon:plugin-interface_$scalaVersion:$marathonVersion"
+    testCompile 'org.testcontainers:testcontainers:1.9.1'
+    testCompile 'com.squareup.okhttp3:okhttp:3.11.0'
+    testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testCompile "org.junit.jupiter:junit-jupiter-params:$junitVersion"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
 }
 
 test {
