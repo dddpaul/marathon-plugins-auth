@@ -7,7 +7,7 @@ services:
       - "2181:2181"
 
   mesos-master:
-    image: mesosphere/mesos-master:1.5.0
+    image: mesosphere/mesos-master:1.5.1
     privileged: true
     ports:
       - "5050:5050"
@@ -23,7 +23,7 @@ services:
       MESOS_LOG_DIR: /var/log/mesos
 
   mesos-slave:
-    image: mesosphere/mesos-slave:1.5.0
+    image: mesosphere/mesos-slave:1.5.1
     privileged: true
     ports:
       - "5051:5051"
