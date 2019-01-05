@@ -64,7 +64,7 @@ public class Authorizer implements mesosphere.marathon.plugin.auth.Authorizer, P
                     return true;
                 }
             } catch (Exception e) {
-                logger.error("{} permission check error for {}: {}", action, principal, e);
+                logger.error("{} permission check error for {}", action, principal, e);
             }
         }
 

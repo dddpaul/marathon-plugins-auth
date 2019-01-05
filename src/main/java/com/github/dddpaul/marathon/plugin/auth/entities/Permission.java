@@ -41,7 +41,11 @@ public class Permission {
                 pathId = ((AppDefinition) resource).id();
             } else if (resource instanceof Group) {
                 pathId = ((Group) resource).id();
+            } else if ("mesosphere.marathon.plugin.auth.AuthorizedResource$Plugins$".equals(resource.getClass().getName())) {
+                // This type of resource has no path and it's unreachable from Java
+                return true;
             } else {
+                System.out.println(resource.getClass().toString());
                 throw new RuntimeException("Unsupported resource: " + resource);
             }
             if (pathId.toString().startsWith(path)) {

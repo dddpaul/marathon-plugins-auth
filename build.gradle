@@ -33,6 +33,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     compile 'at.favre.lib:bcrypt:0.6.0'
 
+    // TODO: Move scala and marathon versions to properties
     compileOnly "mesosphere.marathon:marathon_2.11:1.5.1"
     compileOnly "mesosphere.marathon:plugin-interface_2.11:1.5.1"
     compileOnly "com.typesafe.scala-logging:scala-logging_2.11:3.7.2"
