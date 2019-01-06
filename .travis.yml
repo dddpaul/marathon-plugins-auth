@@ -5,10 +5,11 @@ jdk:
   - oraclejdk8
 
 env:
-  - TESTCONTAINERS_DISABLED=yes
-  - SCALA_VERSION='2.11'
-  - MARATHON_VERSION='1.5.1'
-  - GRADLE_OPTS="-PscalaVersion=$SCALA_VERSION -PmarathonVersion=$MARATHON_VERSION"
+  global:
+    - TESTCONTAINERS_DISABLED=yes
+    - SCALA_VERSION=2.11
+    - MARATHON_VERSION=1.5.1
+    - GRADLE_OPTS="-PscalaVersion=$SCALA_VERSION -PmarathonVersion=$MARATHON_VERSION"
 
 script:
   - ./gradlew build --scan -s
