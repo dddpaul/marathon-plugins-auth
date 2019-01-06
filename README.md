@@ -21,6 +21,8 @@ To build the plugin run this command: `./gradlew clean shadowJar`.
 The resulting uber-jar with all dependencies is put into the `build/libs` directory.
 This directory can be used directly as plugin directory for Marathon.
 
+Use `scalaVersion` and `marathonVersion` to specify versions, for example `-PscalaVersion=2.11 -PmarathonVersion=1.5.11`.
+
 ## Using a Plugin
 
 1. Run `./gradlew clean shadowJar` in the repository's root directory.
