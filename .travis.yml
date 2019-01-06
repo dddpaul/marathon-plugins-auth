@@ -10,7 +10,7 @@ env:
   - MARATHON_VERSION=1.5.1
 
 script:
-  - ./gradlew build --scan -s -PscalaVersion=$SCALA_VERSION -PmarathonVersion=$MARATHON_VERSION
+  - ./gradlew build --scan -s -PscalaVersion=${SCALA_VERSION} -PmarathonVersion=${MARATHON_VERSION}
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
