@@ -43,7 +43,7 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
 
   marathon1:
-    image: mesosphere/marathon:v1.5.11
+    image: mesosphere/marathon:v1.5.12
     entrypoint:
       - ./bin/start
       - --disable_ha
@@ -64,7 +64,7 @@ services:
       - ../../../build:/marathon-plugins
 
   marathon2:
-    image: mesosphere/marathon:v1.5.11
+    image: mesosphere/marathon:v1.5.12
     entrypoint:
       - ./bin/start
       - --disable_ha
@@ -83,7 +83,7 @@ services:
       - ../../../build:/marathon-plugins
 
   marathon3:
-    image: mesosphere/marathon:v1.5.11
+    image: mesosphere/marathon:v1.5.12
     entrypoint:
       - ./bin/start
       - --disable_ha
