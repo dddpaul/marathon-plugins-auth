@@ -7,9 +7,8 @@ jdk:
 env:
   global:
     - TESTCONTAINERS_DISABLED=yes
-    - SCALA_VERSION=2.11
-    - MARATHON_VERSION=1.5.1
-    - GRADLE_OPTS="-PscalaVersion=$SCALA_VERSION -PmarathonVersion=$MARATHON_VERSION"
+    - ORG_GRADLE_PROJECT_scalaVersion=2.11
+    - ORG_GRADLE_PROJECT_marathonVersion=1.5.1
 
 script:
   - ./gradlew build --scan -s
