@@ -13,8 +13,8 @@ plugins {
 }
 
 ext {
-    scalaVersion = '2.11'
-    marathonVersion = '1.5.12'
+    scalaVersion = project.hasProperty('scalaVersion') ? project.getProperty('scalaVersion') : '2.11'
+    marathonVersion = project.hasProperty('marathonVersion') ? project.getProperty('marathonVersion') : '1.5.12'
     junitVersion = '5.3.1'
 }
 
