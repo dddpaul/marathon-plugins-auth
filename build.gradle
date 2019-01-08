@@ -33,10 +33,8 @@ repositories {
 }
 
 dependencies {
-    // TODO: Make the real shadow, remove deps
     compile 'commons-codec:commons-codec:1.11'
     compile 'org.apache.commons:commons-lang3:3.8.1'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     compile 'at.favre.lib:bcrypt:0.6.0'
 
     compileOnly "mesosphere.marathon:marathon_$scalaVersion:$marathonVersion"
@@ -49,6 +47,12 @@ dependencies {
     testCompile "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testCompile "org.junit.jupiter:junit-jupiter-params:$junitVersion"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+}
+
+// Shade up compile-type dependencies to prevent clashing with Marathon-bundled libraries
+shadowJar {
+    relocate 'org.apache.commons', 'com.github.dddpaul.shaded.org.apache.commons'
+    relocate 'at.favre', 'com.github.dddpaul.shaded.at.favre'
 }
 
 test {
