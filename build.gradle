@@ -11,7 +11,6 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '4.0.3'
     id "com.jfrog.bintray" version "1.8.4"
     id 'java'
-    id 'maven'
     id 'maven-publish'
 }
 
@@ -78,11 +77,10 @@ lombok {
 }
 
 
-
 bintray {
     user = project.hasProperty('bintray_user') ? project.getProperty('bintray_user') : System.getenv('BINTRAY_USER')
     key = project.hasProperty('bintray_key') ? project.getProperty('bintray_key') : System.getenv('BINTRAY_KEY')
-    publications = ['ProjectPublication']
+    publications = ['shadow']
     publish = true
 
     pkg {
@@ -95,11 +93,8 @@ bintray {
 
 publishing {
     publications {
-        ProjectPublication(MavenPublication) {
-            from components.java
-            groupId "$project.group"
-            version "$project.version"
-            artifact source: "$libsDir/$project.name-$project.version-all.jar", classifier: 'all', extension: 'jar'
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
         }
     }
 }
