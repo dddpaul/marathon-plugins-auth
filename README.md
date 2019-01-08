@@ -15,6 +15,8 @@ In this case you have to build Marathon plugin interface library by yourself:
 2. Switch to preferred tag/version (`git checkout v1.5.11` for example).
 3. Build and publish to local Maven repo with `sbt publishM2; sbt plugin-interface/publishM2`.
 
+See [Extend Marathon with Plugins](https://mesosphere.github.io/marathon/docs/plugin.html) for detailed information about Marathon plugins.
+
 ## Building a Plugin
 
 To build the plugin run this command: `./gradlew clean shadowJar`.
