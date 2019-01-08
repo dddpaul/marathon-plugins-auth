@@ -25,7 +25,7 @@ Use `scalaVersion` and `marathonVersion` to specify versions, for example `-Psca
 
 ## Using a Plugin
 
-1. Run `./gradlew clean shadowJar` in the repository's root directory or grab compile jar from [Bintray](https://dl.bintray.com/dddpaul/maven/com/github/dddpaul/marathon/marathon-plugins-auth/).
+1. Run `./gradlew clean shadowJar` in the repository's root directory or grab compiled uber-jar from [Bintray](https://dl.bintray.com/dddpaul/maven/com/github/dddpaul/marathon/marathon-plugins-auth/).
 2. Locate and update the Plugin configuration file [plugin-conf.json](src/main/resources/plugin-conf.json).
 3. Start Marathon with the following flags: `--plugin_dir <plugin_path>/build/libs --plugin_conf <path_to_the_plugin_config_file>`.
 4. Or even better - you can use [docker-compose file](src/test/resources/docker-compose.yml) or [shell script wrapper](docker-compose.sh).
