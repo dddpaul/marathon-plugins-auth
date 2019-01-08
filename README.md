@@ -30,6 +30,14 @@ Use `scalaVersion` and `marathonVersion` to specify versions, for example `-Psca
 3. Start Marathon with the following flags: `--plugin_dir <plugin_path>/build/libs --plugin_conf <path_to_the_plugin_config_file>`.
 4. Or even better - you can use [docker-compose file](src/test/resources/docker-compose.yml) or [shell script wrapper](docker-compose.sh).
 
+## Configuration
+
+Marathon plugin subsystem consumes configuration in [JSON format](src/main/resources/plugin-conf.json). But for the sake of brevity and readability configuration could be managed in [YAML format](src/main/resources/plugin-conf.yml) and converted to JSON with [yq](https://github.com/kislyuk/yq):
+
+```
+yq . src/main/resources/plugin-conf.yml > src/main/resources/plugin-conf.json
+```
+
 ## Marathon actions
 
 See full list of actions in [Action](src/main/java/com/github/dddpaul/marathon/plugin/auth/entities/Action.java) enum class.
