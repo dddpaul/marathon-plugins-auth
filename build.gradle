@@ -55,6 +55,7 @@ dependencies {
 shadowJar {
     relocate 'org.apache.commons', 'com.github.dddpaul.shaded.org.apache.commons'
     relocate 'at.favre', 'com.github.dddpaul.shaded.at.favre'
+    minimize()
 }
 
 test {
