@@ -46,4 +46,4 @@ Some hints and caveats:
 
 * `ViewGroup` on `/` is necessary to `Create Application` in root space
 * `CreateRunSpec` on `group` is necessary to create this group
-* `ViewResource` on `mesosphere.marathon.plugin.auth.AuthorizedResource.*` resources are checked on almost every request; they are being code-generated and require special handling
+* `ViewResource` on [AuthorizedResource](https://github.com/mesosphere/marathon/blob/master/plugin-interface/src/main/scala/mesosphere/marathon/plugin/auth/AuthorizedResource.scala) case objects (internal resources) is checked on almost every request; it has to be permitted

@@ -3,6 +3,7 @@ package com.github.dddpaul.marathon.plugin.auth.entities;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import mesosphere.marathon.plugin.auth.AuthorizedAction;
+import mesosphere.marathon.plugin.auth.AuthorizedResource;
 import mesosphere.marathon.state.AppDefinition;
 import mesosphere.marathon.state.Group;
 import mesosphere.marathon.state.PathId;
@@ -41,8 +42,8 @@ public class Permission {
                 pathId = ((AppDefinition) resource).id();
             } else if (resource instanceof Group) {
                 pathId = ((Group) resource).id();
-            } else if (resource.getClass().getName().startsWith("mesosphere.marathon.plugin.auth.AuthorizedResource")) {
-                // These types of resources seems to be code-generated
+            } else if (resource instanceof AuthorizedResource) {
+                // Allow access to Marathon internal resources (events, metrics etc.)
                 return true;
             } else {
                 throw new RuntimeException("Unsupported resource: " + resource);
