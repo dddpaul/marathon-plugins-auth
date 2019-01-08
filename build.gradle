@@ -9,7 +9,9 @@ plugins {
     id 'com.gradle.build-scan' version '2.1'
     id 'io.franzbecker.gradle-lombok' version '1.14'
     id 'com.github.johnrengelman.shadow' version '4.0.3'
+    id "com.jfrog.bintray" version "1.8.4"
     id 'java'
+    id 'maven-publish'
 }
 
 ext {
@@ -19,7 +21,7 @@ ext {
 }
 
 group = 'com.github.dddpaul.marathon'
-version = "$marathonVersion-0.0.1-SNAPSHOT"
+version = "0.1.0"
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -53,6 +55,7 @@ dependencies {
 shadowJar {
     relocate 'org.apache.commons', 'com.github.dddpaul.shaded.org.apache.commons'
     relocate 'at.favre', 'com.github.dddpaul.shaded.at.favre'
+    minimize()
 }
 
 test {
@@ -72,4 +75,27 @@ buildScan {
 lombok {
     version = '1.18.4'
     sha256 = ""
+}
+
+
+bintray {
+    user = project.hasProperty('bintray_user') ? project.getProperty('bintray_user') : System.getenv('BINTRAY_USER')
+    key = project.hasProperty('bintray_key') ? project.getProperty('bintray_key') : System.getenv('BINTRAY_KEY')
+    publications = ['shadow']
+    publish = true
+
+    pkg {
+        repo = 'maven'
+        name = "$project.name"
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/dddpaul/marathon-plugins-auth.git'
+    }
+}
+
+publishing {
+    publications {
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
+        }
+    }
 }
