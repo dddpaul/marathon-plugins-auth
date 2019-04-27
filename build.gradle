@@ -64,8 +64,8 @@ test {
 }
 
 wrapper {
-    gradleVersion = '5.0'
-    distributionUrl = 'https://services.gradle.org/distributions/gradle-5.0-all.zip'
+    gradleVersion = '5.4.1'
+    distributionUrl = 'https://services.gradle.org/distributions/gradle-5.4.1-all.zip'
 }
 
 buildScan {
@@ -77,7 +77,6 @@ lombok {
     version = '1.18.4'
     sha256 = ""
 }
-
 
 bintray {
     user = project.hasProperty('bintray_user') ? project.getProperty('bintray_user') : System.getenv('BINTRAY_USER')
