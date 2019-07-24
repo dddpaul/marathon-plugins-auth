@@ -16,8 +16,8 @@ plugins {
 }
 
 ext {
-    scalaVersion = project.hasProperty('scalaVersion') ? project.getProperty('scalaVersion') : '2.11'
-    marathonVersion = project.hasProperty('marathonVersion') ? project.getProperty('marathonVersion') : '1.5.12'
+    scalaVersion = project.hasProperty('scalaVersion') ? project.getProperty('scalaVersion') : '2.12'
+    marathonVersion = project.hasProperty('marathonVersion') ? project.getProperty('marathonVersion') : '1.6.352'
     junitVersion = '5.3.1'
 }
 
@@ -37,6 +37,7 @@ repositories {
 
 dependencies {
     compile 'commons-codec:commons-codec:1.11'
+    compile 'commons-collections:commons-collections:3.2.2'
     compile 'org.apache.commons:commons-lang3:3.8.1'
     compile 'at.favre.lib:bcrypt:0.6.0'
 
